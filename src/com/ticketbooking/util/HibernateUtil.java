@@ -1,10 +1,15 @@
 package com.ticketbooking.util;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
+import org.hibernate.Criteria;
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
+import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.service.ServiceRegistry;
 import org.hibernate.service.ServiceRegistryBuilder;
 
@@ -115,19 +120,157 @@ public class HibernateUtil {
 	// Data Access Object
 	/**
 	 * 通过序列化id查询唯一对象
-	 * @param className
+	 * @param forClass
 	 * @param id
 	 * @return
 	 */
-	public static <T> Object get(Class<T> className, Serializable id) {
-		return threadSession.get().get(className, id);
+	public static <T> Object get(Class<T> forClass, Serializable id) {
+		return threadSession.get().get(forClass, id);
 	}
 	/**
 	 * 保存或者更新对象
-	 * @param o
+	 * @param Object o
 	 */
 	public static void saveOrUpdate(Object o) {
 		threadSession.get().saveOrUpdate(o);
 	}
-
+	/**
+	 * HQL查询、分页查询
+	 * @param hql
+	 * @param params
+	 * @param start
+	 * @param limit
+	 * @return
+	 * @throws Exception
+	 */
+	public static List<?> createHQLQuery(String hql, Object[] params, 
+			Integer start, Integer limit) {
+		Query query = threadSession.get().createQuery(hql);
+		if (params != null) {
+			for (int i = 0; i < params.length; i++) {
+				query.setParameter(i, params[i]);
+			}
+		}
+		if (start != null) query.setFirstResult(start);
+		if (limit != null) query.setMaxResults(limit);
+		return query.list();
+	}
+	/**
+	 * 简化接口
+	 * @param hql
+	 * @param params
+	 * @param limit
+	 * @return
+	 * @throws Exception
+	 */
+	public static List<?> createHQLQuery(String hql, Object[] params,
+			Integer limit) {
+		return createHQLQuery(hql, params, null, limit);
+	}
+	/**
+	 * 简化接口
+	 * @param hql
+	 * @param params
+	 * @return
+	 * @throws Exception
+	 */
+	public static List<?> createHQLQuery(String hql, Object[] params) {
+		return createHQLQuery(hql, params, null, null);
+	}
+	/**
+	 * 简化接口
+	 * @param hql
+	 * @param param
+	 * @return
+	 * @throws Exception
+	 */
+	public static List<?> createHQLQuery(String hql, Object param) {
+		List<Object> list = new ArrayList<Object>(0);
+		list.add(param);
+		return createHQLQuery(hql, list.toArray());
+	}
+	/**
+	 * SQL查询、分页查询
+	 * @param sql
+	 * @param params
+	 * @param start
+	 * @param limit
+	 * @return
+	 * @throws Exception
+	 */
+	public static List<?> createSQLQuery(String sql, Object[] params, 
+			Integer start, Integer limit) {
+		Query query = threadSession.get().createSQLQuery(sql);
+		if (params != null) {
+			for (int i = 0; i < params.length; i++) {
+				query.setParameter(i, params[i]);
+			}
+		}
+		if (start != null) query.setFirstResult(start);
+		if (limit != null) query.setMaxResults(limit);
+		return query.list();
+	}
+	/**
+	 * 简化接口
+	 * @param sql
+	 * @param params
+	 * @param limit
+	 * @return
+	 * @throws Exception
+	 */
+	public static List<?> createSQLQuery(String sql, Object[] params, 
+			Integer limit) {
+		return createSQLQuery(sql, params, null, limit);
+	}
+	/**
+	 * 简化接口
+	 * @param sql
+	 * @param params
+	 * @return
+	 * @throws Exception
+	 */
+	public static List<?> createSQLQuery(String sql, Object[] params) {
+		return createSQLQuery(sql, params, null, null);
+	}
+	/**
+	 * delete
+	 * @param object
+	 * @throws Exception
+	 */
+	public static void delete(Object object) {
+		threadSession.get().delete(object);
+	}
+	/**
+	 * 条件查询、分页查询
+	 * @param DetachedCriteria dc
+	 * @param Integer start
+	 * @param Integer limit
+	 * @return
+	 */
+	public static List<?> queryByDetachedCriteria(DetachedCriteria dc, 
+			Integer start, Integer limit) {
+		Session sess = threadSession.get();
+		Criteria c = dc.getExecutableCriteria(sess);
+		if (start != null) c.setFirstResult(start);
+		if (limit != null) c.setMaxResults(limit);
+		return c.list();
+	}
+	/**
+	 * 条件查询、分页查询
+	 * @param DetachedCriteria dc
+	 * @param Integer limit
+	 * @return
+	 */
+	public static List<?> queryByDetachedCriteria(DetachedCriteria dc,
+			Integer limit) {
+		return queryByDetachedCriteria(dc, null, limit);
+	}
+	/**
+	 * 条件查询
+	 * @param DetachedCriteria dc
+	 * @return
+	 */
+	public static List<?> queryByDetachedCriteria(DetachedCriteria dc) {
+		return queryByDetachedCriteria(dc, null, null);
+	}
 }

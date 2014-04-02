@@ -9,13 +9,13 @@ import com.ticketbooking.util.HibernateUtil;
  */
 public class InitTest {
 	
-	public static void write(Long userId, String passwd){
+	public static void write(String userId, String passwd){
 		User temp = new User();
 		temp.setUserId(userId);
 		temp.setPassword(passwd);
-		HibernateUtil.begin();
-        HibernateUtil.saveOrUpdate(temp);
-        HibernateUtil.commit();
+//		HibernateUtil.begin();
+//        HibernateUtil.saveOrUpdate(temp);
+//        HibernateUtil.commit();
         HibernateUtil.begin();
         User user = (User) HibernateUtil.get(User.class, 123456L);
         System.out.println(user.getPassword());
@@ -23,6 +23,6 @@ public class InitTest {
 	}
 	
 	public static void main(String[] args) {
-		write(123456L, "fuck");
+		write("wjh", "password");
 	}
 }

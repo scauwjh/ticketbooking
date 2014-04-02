@@ -1,6 +1,11 @@
 package com.ticketbooking.business.debug.init;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import com.ticketbooking.util.ExecuteSQL;
+import com.ticketbooking.util.MD5;
+import com.ticketbooking.util.StringUtil;
 
 /** 
  * 初始化项目，创建数据库和数据库表
@@ -10,16 +15,30 @@ public class InitProject {
 	
 	public InitProject() {}
 	
-	private void initDatabase() {
+	public void initDatabase() {
 		try {
 			ExecuteSQL exec = new ExecuteSQL();
 			String databaseUrl = "jdbc:mysql://localhost:3306";
-			String sqlFilePath = "D:\\Codes\\Java\\eclipse\\ticketbooking"
-					+ "\\src\\com\\ticketbooking\\business\\debug\\init\\initDatabase.sql";
+			String sqlFilePath = System.getProperty("user.dir");
+			sqlFilePath = sqlFilePath.replace("\\", "/");
+			if (!sqlFilePath.endsWith("/")) sqlFilePath += "/";
+			sqlFilePath += "src/com/ticketbooking/business/debug/init/initDatabase.sql";
 			String user = "root";
 			String password = "root";
-			exec.updateDatebase(databaseUrl, sqlFilePath, user, password);
+			exec.exceSQLFile(databaseUrl, sqlFilePath, user, password);
 			System.out.println("init successed!");
+			String sql = "insert into `p_user` value('root', '[PASSWORD]', '[TOKEN]','[DATE]')";
+			String pass = MD5.getMD5("root");
+			String token = StringUtil.randString(32);
+			// need to add salt(token)
+			SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd hh:MM:dd");
+			String date = sf.format(new Date());
+			sql = sql.replace("[PASSWORD]", pass)
+					.replace("[TOKEN]", token)
+					.replace("[DATE]", date);
+			System.out.println(sql);
+			databaseUrl += "/ticketbooking";
+			exec.execSQL(sql, databaseUrl, user, password);
 		} catch (Exception e) {
 			e.printStackTrace();
 			System.out.println("init failed!");

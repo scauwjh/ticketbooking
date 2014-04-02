@@ -13,5 +13,7 @@
 		</id>
 		<!-- 映射普通属性 -->
 		<property name="password" column="password"/>
+		<property name="token" column="token"/>
+		<property name="createDate" column="createDate"/>
     </class>
 </hibernate-mapping>

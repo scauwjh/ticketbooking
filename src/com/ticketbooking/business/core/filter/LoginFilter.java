@@ -1,0 +1,45 @@
+package com.ticketbooking.business.core.filter;
+
+import java.io.IOException;
+
+import javax.servlet.Filter;
+import javax.servlet.FilterChain;
+import javax.servlet.FilterConfig;
+import javax.servlet.ServletException;
+import javax.servlet.ServletRequest;
+import javax.servlet.ServletResponse;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import com.ticketbooking.business.core.constant.Constant;
+
+/**
+ * @author wjh E-mail: 472174314@qq.com
+ * @version 创建时间：2014年3月27日 下午7:31:39
+ */
+public class LoginFilter implements Filter {
+
+	protected FilterConfig config;
+
+	public void destroy() {
+	}
+
+	public void doFilter(ServletRequest request, ServletResponse response,
+			FilterChain chain) throws IOException, ServletException {
+		HttpServletRequest req = (HttpServletRequest) request;
+		HttpServletResponse res = (HttpServletResponse) response;
+		String user = (String) req.getSession().getAttribute(Constant.USER);
+		if (user == null) {
+			// System.out.println("error");
+			String contextPath = req.getServletContext().getContextPath();
+			// System.out.println(contextPath);
+			res.sendRedirect(contextPath + "/login.jsp?ret=-1");
+			return;
+		}
+		chain.doFilter(request, response);
+	}
+
+	public void init(FilterConfig fConfig) throws ServletException {
+		this.config = fConfig;
+	}
+}

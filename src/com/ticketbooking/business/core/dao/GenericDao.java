@@ -8,8 +8,9 @@ import com.ticketbooking.util.HibernateUtil;
 /** 
  * @author wjh E-mail: 472174314@qq.com
  * @version 创建时间：2014年3月27日 下午8:36:22 
+ * 通用数据库操作方法
  */
-public class GenericDao implements IGenericlDao {
+public class GenericDao implements IGenericDao {
 
 	// Google工程师BobLee发明的饱（懒）汉单例模式。解决了饱汉单例模式两大难题。
 	private static class SingletonInstance {

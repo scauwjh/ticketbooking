@@ -1,5 +1,7 @@
 package com.ticketbooking.business.debug.init;
 
+//import com.ticketbooking.business.core.dao.GenericDao;
+//import com.ticketbooking.business.core.dao.IGenericDao;
 import com.ticketbooking.domain.privilege.User;
 import com.ticketbooking.util.HibernateUtil;
 
@@ -9,6 +11,10 @@ import com.ticketbooking.util.HibernateUtil;
  */
 public class InitTest {
 	
+//	private IGenericDao genericDao = GenericDao.getInstance();
+	
+	
+	//写入数据库超简单例子
 	public static void write(String userId, String passwd){
 		User temp = new User();
 		temp.setUserId(userId);
@@ -17,8 +23,9 @@ public class InitTest {
 //        HibernateUtil.saveOrUpdate(temp);
 //        HibernateUtil.commit();
         HibernateUtil.begin();
-        User user = (User) HibernateUtil.get(User.class, 123456L);
-        System.out.println(user.getPassword());
+        //User user = (User) HibernateUtil.get(User.class, 123456L);
+        HibernateUtil.saveOrUpdate(temp);
+//        System.out.println(user.getPassword());
         HibernateUtil.commit();
 	}
 	

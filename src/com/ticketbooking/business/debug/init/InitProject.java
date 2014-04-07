@@ -3,6 +3,7 @@ package com.ticketbooking.business.debug.init;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import com.ticketbooking.business.privilege.service.LoginService;
 import com.ticketbooking.util.ExecuteSQL;
 import com.ticketbooking.util.MD5;
 import com.ticketbooking.util.StringUtil;
@@ -12,6 +13,8 @@ import com.ticketbooking.util.StringUtil;
  * @author wjh E-mail: 472174314@qq.com
  */
 public class InitProject {
+	
+	private LoginService loginService = new LoginService();
 	
 	public InitProject() {}
 	
@@ -27,14 +30,15 @@ public class InitProject {
 			String password = "root";
 			exec.exceSQLFile(databaseUrl, sqlFilePath, user, password);
 			System.out.println("init successed!");
-			String sql = "insert into `p_user` value('root', '[PASSWORD]', '[TOKEN]','[DATE]')";
-			String pass = MD5.getMD5("root");
+			String sql = "insert into `p_user` value('root', '[PASSWORD]', '[TOKEN]', '[REDIRECT]', '[DATE]')";
 			String token = StringUtil.randString(32);
+			String pass = loginService.addSalt(MD5.getMD5("root"), token);
 			// need to add salt(token)
 			SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd hh:MM:dd");
 			String date = sf.format(new Date());
 			sql = sql.replace("[PASSWORD]", pass)
 					.replace("[TOKEN]", token)
+					.replace("[REDIRECT]", "/page/inner/index.jsp")
 					.replace("[DATE]", date);
 			System.out.println(sql);
 			databaseUrl += "/ticketbooking";

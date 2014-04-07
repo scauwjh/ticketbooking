@@ -16,6 +16,7 @@ import com.ticketbooking.business.core.constant.Constant;
 /**
  * @author wjh E-mail: 472174314@qq.com
  * @version 创建时间：2014年3月27日 下午7:31:39
+ * 全局过滤器，登录时设置session，检查到没有session就过滤掉请求
  */
 public class LoginFilter implements Filter {
 

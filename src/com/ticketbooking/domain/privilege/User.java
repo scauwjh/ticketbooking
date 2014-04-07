@@ -5,6 +5,7 @@ import java.util.Date;
 
 /** 
  * @author wjh E-mail: 472174314@qq.com
+ * User持久化类，对应数据库的p_user表
  */
 public class User implements Serializable {
 
@@ -15,6 +16,8 @@ public class User implements Serializable {
 	private String password;
 	
 	private String token;
+	
+	private String redirection;
 	
 	private Date createDate;
 
@@ -49,5 +52,13 @@ public class User implements Serializable {
 
 	public void setCreateDate(Date createDate) {
 		this.createDate = createDate;
+	}
+
+	public String getRedirection() {
+		return redirection;
+	}
+
+	public void setRedirection(String redirection) {
+		this.redirection = redirection;
 	}
 }

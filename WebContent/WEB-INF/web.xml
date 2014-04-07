@@ -1,29 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd" id="WebApp_ID" version="3.0">
-	<display-name>weixinlogin</display-name>
-	<!-- login filter -->
-	<filter>
-		<filter-name>LoginFilter</filter-name>
-		<filter-class>com.weixinlogin.business.core.filter.LoginFilter</filter-class>
-	</filter>
-	<filter-mapping>
-		<filter-name>LoginFilter</filter-name>
-		<url-pattern>/page/inner/*</url-pattern>
-		<url-pattern>/data/*</url-pattern>
-	</filter-mapping>
-  
-	<!-- catch error code -->
-	<error-page>
-	    <error-code>500</error-code> <!-- 要捕捉的错误代码-->
-		<location>/page/outward/errorPage/paramsError.jsp</location> <!--出现要捕捉的错误代码时，跳转到的页面-->
-	</error-page>
-	<error-page>
-	    <error-code>404</error-code> <!-- 要捕捉的错误代码-->
-		<location>/page/outward/errorPage/fileNotFound.jsp</location> <!--出现要捕捉的错误代码时，跳转到的页面-->
-	</error-page>
-  
-	<!-- welcome page -->
-	<welcome-file-list>
-		<welcome-file>login.jsp</welcome-file>
-	</welcome-file-list>
+  <display-name>ticketbooking</display-name>
+  <filter>
+    <filter-name>LoginFilter</filter-name>
+    <filter-class>com.ticketbooking.business.core.filter.LoginFilter</filter-class>
+  </filter>
+  <filter-mapping>
+    <filter-name>LoginFilter</filter-name>
+    <url-pattern>/page/inner/*</url-pattern>
+    <url-pattern>/data/*</url-pattern>
+  </filter-mapping>
+  <error-page>
+    <error-code>500</error-code>
+    <location>/page/outward/errorPage/paramsError.jsp</location>
+  </error-page>
+  <error-page>
+    <error-code>404</error-code>
+    <location>/page/outward/errorPage/fileNotFound.jsp</location>
+  </error-page>
+  <welcome-file-list>
+    <welcome-file>login.jsp</welcome-file>
+  </welcome-file-list>
 </web-app>

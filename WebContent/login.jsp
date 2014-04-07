@@ -16,16 +16,33 @@
 			function login(){
 				var password = $("#password").val();
 				var user = $("#user").val();
-				var verifyCode = $("#verifycode").val();
-				if (password == "" || user == "" || verifyCode == "") {
+				if (password == "" || user == "") {
 					alert("帐号密码不能为空");
 					return;
 				}
 				password = hex_md5(password);
 				// post data to login
 				// .....
+				$.ajax({
+					url : contextPath + "/login",
+					data : {
+						user : user,
+						password : password,
+					},
+					cache : false,
+					success : function(data){
+						if (data == -1)
+							alert("帐号或者密码错误");
+						else top.location.href = contextPath + data;
+						hideLoading();
+					},
+					error : function() {
+						alert("连接失败");
+						hideLoading();
+					}
+				});
 			}
-			$("#submit").click(function(){
+			$("#login").click(function(){
 				login();
 			});
 			$(document).keypress(function(e){
@@ -33,6 +50,13 @@
 					login();
 				}
 			});
+			function showLoading(){
+				$("#loading").show();
+			}
+			function hideLoading(){
+				$("#loading").hide();
+			}
+			hideLoading();
 		});
 	</script>
 </head>
@@ -40,9 +64,11 @@
 	<div>
 		<input type="text" name="user" id="user" value=""/>
 		<input type="password" name="password" id="password" value=""/>
-		<input type="text" name="verifycode" id="verifycode" value=""/>
-		<img src="" id="verifycode_img" />(还没写逻辑，登不了也没有验证码)
-		<button id="submit">登录</button>
+		<button id="login">登录</button>
+		<button id="registe">注册</button>
+	</div>
+	<div id="loading">
+		<img src="<%=contextPath%>/image/public/loading.gif" alt="">
 	</div>
 </body>
 </html>

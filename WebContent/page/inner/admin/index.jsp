@@ -11,7 +11,7 @@
 			var contextPath = "<%=contextPath%>";
 			$("#logout").click(function(){
 				var url = contextPath + "/logout";
-				$.post(url, function(data){
+				$.post(url, function(data) {
 					top.location.href = data;
 				});
 			});

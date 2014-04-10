@@ -21,4 +21,9 @@ public class Constant {
 	public static final String JSON_TYPE = "application/json";
 	public static final Integer I_UPDATE = 1;
 	public static final Integer I_DO_NOTHING = 0;
+	public static final Integer ADMIN = 1;
+	public static final Integer CINEMA = 2;
+	public static final Integer CUSTOMER = 3;
+	public static final String ROLE = "role";
+	public static final String POWER = "power";
 }

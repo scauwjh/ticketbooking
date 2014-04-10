@@ -12,6 +12,7 @@ import javax.servlet.http.HttpSession;
 
 import com.ticketbooking.business.core.constant.Constant;
 import com.ticketbooking.business.privilege.service.LoginService;
+import com.ticketbooking.domain.privilege.User;
 
 /** 
  * @author wjh E-mail: 472174314@qq.com
@@ -41,10 +42,12 @@ public class Login extends HttpServlet {
 		HttpSession sessiong = req.getSession();
 		String userId = req.getParameter(Constant.USER);
 		String password = req.getParameter(Constant.PASSWORD); // md5 password
-		String redirect = loginService.login(userId, password);
-		if (redirect != null) {
+		User user = loginService.login(userId, password);
+		if (user != null) {
 			// set session
-			sessiong.setAttribute(Constant.USER, userId);
+			String redirect = user.getRole().getRedirection();
+			sessiong.setAttribute(Constant.USER, user.getUserId());
+			sessiong.setAttribute(Constant.POWER, user.getRole().getPower());
 			System.out.println(userId + " login succeed");
 			out.println(redirect);
 			return;

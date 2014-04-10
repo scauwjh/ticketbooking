@@ -29,8 +29,8 @@ public class InitProject {
 			String user = "root";
 			String password = "root";
 			exec.exceSQLFile(databaseUrl, sqlFilePath, user, password);
-			System.out.println("init successed!");
-			String sql = "insert into `p_user` value('root', '[PASSWORD]', '[TOKEN]', '[REDIRECT]', '[DATE]')";
+			// insert root account
+			String sql = "insert into `p_user` value(1, 'root', '[PASSWORD]', '[TOKEN]', 1, '[DATE]')";
 			String token = StringUtil.randString(32);
 			String pass = loginService.addSalt(MD5.getMD5("root"), token);
 			// need to add salt(token)
@@ -38,11 +38,11 @@ public class InitProject {
 			String date = sf.format(new Date());
 			sql = sql.replace("[PASSWORD]", pass)
 					.replace("[TOKEN]", token)
-					.replace("[REDIRECT]", "/page/inner/index.jsp")
 					.replace("[DATE]", date);
-			System.out.println(sql);
+			// System.out.println(sql);
 			databaseUrl += "/ticketbooking";
 			exec.execSQL(sql, databaseUrl, user, password);
+			System.out.println("init successed!");
 		} catch (Exception e) {
 			e.printStackTrace();
 			System.out.println("init failed!");

@@ -75,7 +75,7 @@ public class LoginService {
 	 * @param password
 	 * @return
 	 */
-	public String login(String userId, String md5Pass) {
+	public User login(String userId, String md5Pass) {
 		User user = userDao.queryByUserId(userId);
 		if (user == null) {
 			System.out.println("no such user");
@@ -84,7 +84,7 @@ public class LoginService {
 		// 密码加盐匹配
 		String saltPass = this.addSalt(md5Pass, user.getToken());
 		if (user.getPassword().equals(saltPass))
-			return user.getRedirection();
+			return user;
 		System.out.println("wrong password");
 		return null;
 	}

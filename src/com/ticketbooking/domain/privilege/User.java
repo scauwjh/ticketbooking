@@ -9,7 +9,9 @@ import java.util.Date;
  */
 public class User implements Serializable {
 
-	private static final long serialVersionUID = -6573181306739082338L;
+	private static final long serialVersionUID = 1L;
+	
+	private Long id;
 	
 	private String userId;
 	
@@ -17,7 +19,7 @@ public class User implements Serializable {
 	
 	private String token;
 	
-	private String redirection;
+	private Role role;
 	
 	private Date createDate;
 
@@ -54,11 +56,20 @@ public class User implements Serializable {
 		this.createDate = createDate;
 	}
 
-	public String getRedirection() {
-		return redirection;
+	public Long getId() {
+		return id;
 	}
 
-	public void setRedirection(String redirection) {
-		this.redirection = redirection;
+	public void setId(Long id) {
+		this.id = id;
 	}
+
+	public Role getRole() {
+		return role;
+	}
+
+	public void setRole(Role role) {
+		this.role = role;
+	}
+
 }

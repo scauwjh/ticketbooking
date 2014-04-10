@@ -36,7 +36,13 @@
 		<property name="connection.characterEncoding">UTF-8</property>
 		
 		<!-- mapping resource -->
+		<!-- privilege -->
 		<mapping resource="com/ticketbooking/domain/privilege/User.hbm.xml" />
+		<mapping resource="com/ticketbooking/domain/privilege/Role.hbm.xml" />
+		<mapping resource="com/ticketbooking/domain/privilege/UserInfo.hbm.xml" />
+		<!-- ticket -->
+		<mapping resource="com/ticketbooking/domain/ticket/Ticket.hbm.xml" />
+		<mapping resource="com/ticketbooking/domain/ticket/TicketRecord.hbm.xml" />
 		
     </session-factory>
 </hibernate-configuration>

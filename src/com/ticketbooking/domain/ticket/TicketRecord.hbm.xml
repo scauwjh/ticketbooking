@@ -4,8 +4,8 @@
 	"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 	"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
 <!-- Hibernate映射文件的根元素 -->
-<hibernate-mapping package="com.ticketbooking.domain.privilege">
-    <class name="User" table="p_user">
+<hibernate-mapping package="com.ticketbooking.domain.ticket">
+    <class name="TicketRecord" table="t_ticket_record">
 		<!-- 映射标识属性 -->
 		<id	name="id" column="id">
 			<!-- 用户指定 主键生成策略 -->
@@ -13,11 +13,8 @@
 		</id>
 		<!-- 映射普通属性 -->
 		<property name="userId" column="userId"/>
-		<property name="password" column="password"/>
-		<property name="token" column="token"/>
-		<many-to-one name="role" class="com.ticketbooking.domain.privilege.Role" lazy="false" cascade="none" fetch="join">
-        	<column name="role"></column>
-        </many-to-one>
-		<property name="createDate" column="createDate"/>
+		<property name="ticketId" column="ticketId"/>
+		<property name="checked" column="checked"/>
+		<property name="orderDate" column="orderDate"/>
     </class>
 </hibernate-mapping>

@@ -45,6 +45,10 @@
 			$("#login").click(function(){
 				login();
 			});
+			$("#registe").click(function(){
+				top.location.href = contextPath + "/registe.jsp";
+			});
+			
 			$(document).keypress(function(e){
 				if (e.keyCode == 13) {
 					login();

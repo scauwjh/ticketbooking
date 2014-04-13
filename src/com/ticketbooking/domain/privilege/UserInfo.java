@@ -10,8 +10,6 @@ public class UserInfo implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	
-	private Long id;
-	
 	private Long userId;
 	
 	private String name;
@@ -23,15 +21,6 @@ public class UserInfo implements Serializable {
 	private String IDCard;
 	
 	private String otherCard;
-
-	
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
 
 	public Long getUserId() {
 		return userId;

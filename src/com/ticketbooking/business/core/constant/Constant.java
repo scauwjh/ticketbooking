@@ -26,4 +26,9 @@ public class Constant {
 	public static final Integer CUSTOMER = 3;
 	public static final String ROLE = "role";
 	public static final String POWER = "power";
+	public static final String CHECK_USER_ID = "checkId";
+	public static final String REGISTE = "registe";
+	public static final String METHOD = "method";
+	public static final Integer CHECK_OK = 1;
+	public static final Integer CHECK_FAILED = 0;
 }

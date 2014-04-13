@@ -6,7 +6,7 @@ import java.util.List;
 /** 
  * @author wjh E-mail: 472174314@qq.com
  * @version 创建时间：2014年3月27日 下午8:31:41 
- * 通用数据库操作
+ * 用户控制事务的数据库操作
  */
 public interface IGenericDao {
 	
@@ -15,14 +15,14 @@ public interface IGenericDao {
 	 * general saveOrUpdate
 	 * @param object
 	 */
-	public abstract Boolean saveOrUpdate(Object object);
+	public abstract void saveOrUpdate(Object object);
 	
 	/**
 	 * 同上，不过更新的是一个list，多个实体
 	 * general saveOrUpdate
 	 * @param List<Object> list
 	 */
-	public abstract Boolean saveOrUpdate(List<Object> list);
+	public abstract void saveOrUpdate(List<Object> list);
 	
 	/**
 	 * 通过主键id
@@ -39,7 +39,7 @@ public interface IGenericDao {
 	 * @param object
 	 * @return
 	 */
-	public abstract Boolean delete(Object object);
+	public abstract void delete(Object object);
 	
 	/**
 	 * 删除一系列记录，list
@@ -47,6 +47,6 @@ public interface IGenericDao {
 	 * @param List<Object> list
 	 * @return
 	 */
-	public abstract Boolean delete(List<Object> list);
+	public abstract void delete(List<Object> list);
 	
 }

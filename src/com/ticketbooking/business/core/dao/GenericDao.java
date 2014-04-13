@@ -23,84 +23,29 @@ public class GenericDao implements IGenericDao {
 	}
 	
 	@Override
-	public Boolean saveOrUpdate(Object object) {
-		Boolean flag = false;
-		HibernateUtil.begin();
-		try {
-			HibernateUtil.saveOrUpdate(object);
-			HibernateUtil.commit();
-			flag = true;
-		} catch (Exception e) {
-			HibernateUtil.rollback();
-			e.printStackTrace();
-			flag = false;
-		}
-		HibernateUtil.close();
-		return flag;
+	public void saveOrUpdate(Object object) {
+		HibernateUtil.saveOrUpdate(object);
 	}
 	
 	@Override
-	public Boolean saveOrUpdate(List<Object> list) {
-		Boolean flag = false;
-		HibernateUtil.begin();
-		try {
-			for (int i = 0; i < list.size(); i++)
-				HibernateUtil.saveOrUpdate(list.get(i));
-			HibernateUtil.commit();
-			flag = true;
-		} catch (Exception e) {
-			HibernateUtil.rollback();
-			e.printStackTrace();
-			flag = false;
-		}
-		HibernateUtil.close();
-		return flag;
+	public void saveOrUpdate(List<Object> list) {
+		for (int i = 0; i < list.size(); i++)
+			HibernateUtil.saveOrUpdate(list.get(i));
 	}
 
 	@Override
 	public <T> Object get(Class<T> forClass, Serializable id) {
-		HibernateUtil.begin();
-		Object object = null;
-		try {
-			object = HibernateUtil.get(forClass, id);
-			HibernateUtil.commit();
-		} catch (Exception e) {
-			HibernateUtil.rollback();
-			e.printStackTrace();
-		}
-		return object;
+		return HibernateUtil.get(forClass, id);
 	}
 
 	@Override
-	public Boolean delete(Object object) {
-		Boolean flag = false;
-		HibernateUtil.begin();
-		try {
-			HibernateUtil.delete(object);
-			HibernateUtil.commit();
-			flag = true;
-		} catch (Exception e) {
-			HibernateUtil.rollback();
-			e.printStackTrace();
-			flag = false;
-		}
-		return flag;
+	public void delete(Object object) {
+		HibernateUtil.delete(object);
 	}
 	
 	@Override
-	public Boolean delete(List<Object> list) {
-		Boolean flag = false;
-		HibernateUtil.begin();
-		try {
-			for (int i = 0; i < list.size(); i++)
-				HibernateUtil.delete(list.get(i));
-			HibernateUtil.commit();
-			flag = true;
-		} catch (Exception e) {
-			HibernateUtil.rollback();
-			e.printStackTrace();
-			flag = false;
-		}
-		return flag;
+	public void delete(List<Object> list) {
+		for (int i = 0; i < list.size(); i++)
+			HibernateUtil.delete(list.get(i));
 	}
 }

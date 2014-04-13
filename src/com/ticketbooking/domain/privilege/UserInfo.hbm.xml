@@ -7,12 +7,11 @@
 <hibernate-mapping package="com.ticketbooking.domain.privilege">
     <class name="UserInfo" table="p_user_info">
 		<!-- 映射标识属性 -->
-		<id	name="id" column="id">
+		<id	name="userId" column="userId">
 			<!-- 用户指定 主键生成策略 -->
-			<generator class="identity"/>
+			<generator class="assigned"/>
 		</id>
 		<!-- 映射普通属性 -->
-		<property name="userId" column="userId"/>
 		<property name="name" column="name"/>
 		<property name="telephone" column="telephone"/>
 		<property name="address" column="address"/>

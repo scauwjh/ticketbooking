@@ -16,6 +16,12 @@ public class Role implements Serializable {
 	
 	private String redirection;
 
+	public Role() {
+	}
+	
+	public Role(Byte roleId) {
+		this.roleId = roleId;
+	}
 	
 	public Byte getRoleId() {
 		return roleId;

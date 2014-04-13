@@ -13,6 +13,7 @@ import javax.servlet.http.HttpSession;
 import com.ticketbooking.business.core.constant.Constant;
 import com.ticketbooking.business.privilege.service.LoginService;
 import com.ticketbooking.domain.privilege.User;
+import com.ticketbooking.util.HibernateUtil;
 
 /** 
  * @author wjh E-mail: 472174314@qq.com
@@ -42,6 +43,8 @@ public class Login extends HttpServlet {
 		HttpSession sessiong = req.getSession();
 		String userId = req.getParameter(Constant.USER);
 		String password = req.getParameter(Constant.PASSWORD); // md5 password
+		//事务开始
+		HibernateUtil.begin();
 		User user = loginService.login(userId, password);
 		if (user != null) {
 			// set session
@@ -50,9 +53,11 @@ public class Login extends HttpServlet {
 			sessiong.setAttribute(Constant.POWER, user.getRole().getPower());
 			System.out.println(userId + " login succeed");
 			out.println(redirect);
+			HibernateUtil.close();
 			return;
 		}
 		System.out.println(userId + " login failed");
 		out.println(Constant.LOGIN_ERROR);
+		HibernateUtil.close();
 	}
 }

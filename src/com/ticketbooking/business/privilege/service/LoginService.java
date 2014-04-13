@@ -2,9 +2,12 @@ package com.ticketbooking.business.privilege.service;
 
 import java.util.Date;
 
+import com.ticketbooking.business.core.dao.GenericDao;
 import com.ticketbooking.business.privilege.dao.IUserDao;
 import com.ticketbooking.business.privilege.dao.UserDao;
+import com.ticketbooking.domain.privilege.Role;
 import com.ticketbooking.domain.privilege.User;
+import com.ticketbooking.domain.privilege.UserInfo;
 import com.ticketbooking.util.SHA1;
 import com.ticketbooking.util.StringUtil;
 
@@ -12,7 +15,7 @@ import com.ticketbooking.util.StringUtil;
  * @author wjh E-mail: 472174314@qq.com
  * @version 创建时间：2014年3月27日 下午9:46:25
  */
-public class LoginService {
+public class LoginService extends GenericDao{
 
 	private IUserDao userDao = UserDao.getInstance();
 
@@ -23,7 +26,7 @@ public class LoginService {
 	 * @param md5Password
 	 * @return
 	 */
-	public Boolean addUser(String userId, String md5Password) {
+	public Boolean addUser(String userId, String md5Password, Byte roleId) {
 		User user = userDao.queryByUserId(userId);
 		if (user == null) {
 			user = new User();
@@ -33,12 +36,52 @@ public class LoginService {
 			String saltPass = addSalt(md5Password, token); // md5密码加盐再写入数据库
 			user.setPassword(saltPass);
 			user.setToken(token);
+			Role role = new Role(roleId);
+			user.setRole(role);
 			userDao.saveOrUpdate(user);
-			System.out.println("add user succeed");
 			return true;
 		}
 		System.out.println("exists user");
 		return false;
+	}
+	
+	/**
+	 * 保存用户信息
+	 * @param name
+	 * @param telephone
+	 * @param address
+	 * @param IDCard
+	 * @param otherCard
+	 * @return
+	 */
+	public void saveUserInfo(String userId, String name, String telephone,
+			String address, String IDCard, String otherCard) {
+		UserInfo userInfo = new UserInfo();
+		User user = userDao.queryByUserId(userId);
+		if (user != null) 
+			userInfo.setUserId(user.getId());
+		if(!address.equals("0"))
+			userInfo.setAddress(address);
+		if(!IDCard.equals("0"))
+			userInfo.setIDCard(IDCard);
+		if(!name.equals("0"))
+			userInfo.setName(name);
+		if(!otherCard.equals("0"))
+			userInfo.setOtherCard(otherCard);
+		if(!telephone.equals("0"))
+			userInfo.setTelephone(telephone);
+		userDao.saveOrUpdate(userInfo);
+	}
+	
+	/**
+	 * 检查userId是否可用
+	 * @param userId
+	 * @return
+	 */
+	public Boolean checkUserId(String userId) {
+		if (userDao.queryByUserId(userId) != null)
+			return false;
+		return true;
 	}
 
 	/**

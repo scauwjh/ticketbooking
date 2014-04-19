@@ -1,20 +1,28 @@
 package com.ticketbooking.business.cinema.dao;
 
+import java.util.List;
+
 import com.ticketbooking.business.core.dao.IGenericDao;
-import com.ticketbooking.domain.privilege.User;
+import com.ticketbooking.domain.ticket.Ticket;
 
 /** 
- * @author wjh E-mail: 472174314@qq.com
- * @version 创建时间：2014年3月28日 上午8:05:55 
- * 
- *
+ * 电影票维护dao
  */
 public interface ICinemaDao extends IGenericDao {
 	
 	/**
-	 * 通过userId查询获取一个user
+	 * 通过ticketId查询获取一个ticket
 	 * @param account
 	 * @return
 	 */
-	public abstract User queryByUserId(String userId);
+	public abstract Ticket queryByTicketId(Long TicketId);
+	
+	/**
+	 * 通过userId和limit查询ticket列表
+	 * @param userId
+	 * @param limit 限制多少条
+	 * @return 返回List<Ticket>
+	 */
+	public abstract List<Ticket> queryTicketListByUserId(Long userId, 
+			Integer start, Integer limit);
 }

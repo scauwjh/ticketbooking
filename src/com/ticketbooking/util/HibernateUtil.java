@@ -170,6 +170,33 @@ public class HibernateUtil {
 	/**
 	 * 简化接口
 	 * @param hql
+	 * @param param
+	 * @param limit
+	 * @return
+	 */
+	public static List<?> createHQLQuery(String hql, Object param,
+			Integer limit) {
+		List<Object> list = new ArrayList<Object>();
+		list.add(param);
+		return createHQLQuery(hql, list.toArray(), null, limit);
+	}
+	/**
+	 * 简化接口
+	 * @param hql
+	 * @param param
+	 * @param start
+	 * @param limit
+	 * @return
+	 */
+	public static List<?> createHQLQuery(String hql, Object param,
+			Integer start, Integer limit) {
+		List<Object> list = new ArrayList<Object>();
+		list.add(param);
+		return createHQLQuery(hql, list.toArray(), start, limit);
+	}
+	/**
+	 * 简化接口
+	 * @param hql
 	 * @param params
 	 * @return
 	 * @throws Exception
@@ -185,8 +212,21 @@ public class HibernateUtil {
 	 * @throws Exception
 	 */
 	public static List<?> createHQLQuery(String hql, Object param) {
-		List<Object> list = new ArrayList<Object>(0);
+		List<Object> list = new ArrayList<Object>();
 		list.add(param);
+		return createHQLQuery(hql, list.toArray());
+	}
+	/**
+	 * 简化接口
+	 * @param hql
+	 * @param param1
+	 * @param param2
+	 * @return
+	 */
+	public static List<?> createHQLQuery(String hql, Object param1, Object param2) {
+		List<Object> list = new ArrayList<Object>();
+		list.add(param1);
+		list.add(param2);
 		return createHQLQuery(hql, list.toArray());
 	}
 	/**

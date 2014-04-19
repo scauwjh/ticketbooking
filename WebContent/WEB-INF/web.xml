@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd" id="WebApp_ID" version="3.0">
   <display-name>ticketbooking</display-name>
-  <!-- login filter -->
   <filter>
     <filter-name>LoginFilter</filter-name>
     <filter-class>com.ticketbooking.business.core.filter.LoginFilter</filter-class>
@@ -11,9 +10,6 @@
     <url-pattern>/page/inner/*</url-pattern>
     <url-pattern>/inner/*</url-pattern>
   </filter-mapping>
-  <!-- end -->
-  
-  <!-- admin filter -->
   <filter>
     <filter-name>AdminFilter</filter-name>
     <filter-class>com.ticketbooking.business.core.filter.AdminFilter</filter-class>
@@ -23,9 +19,6 @@
     <url-pattern>/page/inner/admin/*</url-pattern>
     <url-pattern>/admin/*</url-pattern>
   </filter-mapping>
-  <!-- end -->
-  
-  <!-- cinema filter -->
   <filter>
     <filter-name>CinemaFilter</filter-name>
     <filter-class>com.ticketbooking.business.core.filter.CinemaFilter</filter-class>
@@ -35,9 +28,6 @@
     <url-pattern>/page/inner/cinema/*</url-pattern>
     <url-pattern>/cinema/*</url-pattern>
   </filter-mapping>
-  <!-- end -->
-  
-  <!-- customer filter -->
   <filter>
     <filter-name>CustomerFilter</filter-name>
     <filter-class>com.ticketbooking.business.core.filter.CustomerFilter</filter-class>
@@ -47,8 +37,6 @@
     <url-pattern>/page/inner/customer/*</url-pattern>
     <url-pattern>/customer/*</url-pattern>
   </filter-mapping>
-  <!-- end -->
-  
   <error-page>
     <error-code>500</error-code>
     <location>/page/outward/errorPage/paramsError.jsp</location>

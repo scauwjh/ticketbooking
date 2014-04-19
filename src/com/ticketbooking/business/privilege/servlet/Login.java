@@ -40,7 +40,7 @@ public class Login extends HttpServlet {
 		res.setCharacterEncoding(Constant.ENCODER);
 		res.setContentType(Constant.HTML_TYPE);
 		PrintWriter out = res.getWriter();
-		HttpSession sessiong = req.getSession();
+		HttpSession session = req.getSession();
 		String userId = req.getParameter(Constant.USER);
 		String password = req.getParameter(Constant.PASSWORD); // md5 password
 		//事务开始
@@ -49,8 +49,9 @@ public class Login extends HttpServlet {
 		if (user != null) {
 			// set session
 			String redirect = user.getRole().getRedirection();
-			sessiong.setAttribute(Constant.USER, user.getUserId());
-			sessiong.setAttribute(Constant.POWER, user.getRole().getPower());
+			session.setAttribute(Constant.USER_ID, user.getId());
+			session.setAttribute(Constant.USER, user.getUserId());
+			session.setAttribute(Constant.POWER, user.getRole().getPower());
 			System.out.println(userId + " login succeed");
 			out.println(redirect);
 			HibernateUtil.close();

@@ -3,7 +3,7 @@ package com.ticketbooking.business.cinema.dao;
 import java.util.List;
 
 import com.ticketbooking.business.core.dao.GenericDao;
-import com.ticketbooking.domain.privilege.User;
+import com.ticketbooking.domain.ticket.Ticket;
 import com.ticketbooking.util.HibernateUtil;
 
 /** 
@@ -24,14 +24,23 @@ public class CinemaDao extends GenericDao implements ICinemaDao {
 	}
 
 	@Override
-	public User queryByUserId(String userId) {
-		String hql = "from User u where u.userId = ?";
-		User user = null;
+	public Ticket queryByTicketId(Long ticketId) {
+		String hql = "from Ticket t where t.ticketId = ?";
+		Ticket ticket = null;
 		@SuppressWarnings("unchecked")
-		List<User> list = (List<User>) HibernateUtil.createHQLQuery(hql, userId);
+		List<Ticket> list = (List<Ticket>) HibernateUtil.createHQLQuery(hql, ticketId);
 		if (list.size() > 0)
-			user = list.get(0);
-		return user;
+			ticket = list.get(0);
+		return ticket;
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Ticket> queryTicketListByUserId(Long userId, 
+			Integer start, Integer limit) {
+		String hql = "from Ticket t where t.userId = ?";
+		return (List<Ticket>) HibernateUtil.createHQLQuery(hql,
+				userId, start, limit);
 	}
 	
 }

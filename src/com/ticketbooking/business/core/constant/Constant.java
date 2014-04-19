@@ -31,4 +31,5 @@ public class Constant {
 	public static final String METHOD = "method";
 	public static final Integer CHECK_OK = 1;
 	public static final Integer CHECK_FAILED = 0;
+	public static final String DATE_FORMAT = "yyyy-MM-dd HH:mm:ss";
 }

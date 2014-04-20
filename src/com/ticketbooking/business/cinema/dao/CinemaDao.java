@@ -24,11 +24,11 @@ public class CinemaDao extends GenericDao implements ICinemaDao {
 	}
 
 	@Override
-	public Ticket queryByTicketId(Long ticketId) {
-		String hql = "from Ticket t where t.ticketId = ?";
+	public Ticket queryByTicketId(Long ticketId, Long userId) {
+		String hql = "from Ticket t where t.ticketId = ? and t.userId = ?";
 		Ticket ticket = null;
 		@SuppressWarnings("unchecked")
-		List<Ticket> list = (List<Ticket>) HibernateUtil.createHQLQuery(hql, ticketId);
+		List<Ticket> list = (List<Ticket>) HibernateUtil.createHQLQuery(hql, ticketId, userId);
 		if (list.size() > 0)
 			ticket = list.get(0);
 		return ticket;

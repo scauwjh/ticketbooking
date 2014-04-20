@@ -15,7 +15,7 @@ public interface ICinemaDao extends IGenericDao {
 	 * @param account
 	 * @return
 	 */
-	public abstract Ticket queryByTicketId(Long TicketId);
+	public abstract Ticket queryByTicketId(Long ticketId, Long userId);
 	
 	/**
 	 * 通过userId和limit查询ticket列表

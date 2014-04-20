@@ -32,4 +32,5 @@ public class Constant {
 	public static final Integer CHECK_OK = 1;
 	public static final Integer CHECK_FAILED = 0;
 	public static final String DATE_FORMAT = "yyyy-MM-dd HH:mm:ss";
+	public static final String DATE_FORMAT_NO_SYMBOL = "yyyyMMddHHmmss";
 }

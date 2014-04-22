@@ -7,17 +7,8 @@
   </filter>
   <filter-mapping>
     <filter-name>LoginFilter</filter-name>
-    <url-pattern>/page/inner/*</url-pattern>
     <url-pattern>/inner/*</url-pattern>
-  </filter-mapping>
-  <filter>
-    <filter-name>AdminFilter</filter-name>
-    <filter-class>com.ticketbooking.business.core.filter.AdminFilter</filter-class>
-  </filter>
-  <filter-mapping>
-    <filter-name>AdminFilter</filter-name>
-    <url-pattern>/page/inner/admin/*</url-pattern>
-    <url-pattern>/admin/*</url-pattern>
+    <url-pattern>/inner/*</url-pattern>
   </filter-mapping>
   <filter>
     <filter-name>CinemaFilter</filter-name>
@@ -25,8 +16,9 @@
   </filter>
   <filter-mapping>
     <filter-name>CinemaFilter</filter-name>
-    <url-pattern>/page/inner/cinema/*</url-pattern>
+    <url-pattern>/inner/cinema/*</url-pattern>
     <url-pattern>/cinema/*</url-pattern>
+    <url-pattern>/admin/*</url-pattern>
   </filter-mapping>
   <filter>
     <filter-name>CustomerFilter</filter-name>
@@ -34,16 +26,16 @@
   </filter>
   <filter-mapping>
     <filter-name>CustomerFilter</filter-name>
-    <url-pattern>/page/inner/customer/*</url-pattern>
+    <url-pattern>/inner/customer/*</url-pattern>
     <url-pattern>/customer/*</url-pattern>
   </filter-mapping>
   <error-page>
     <error-code>500</error-code>
-    <location>/page/outward/errorPage/paramsError.jsp</location>
+    <location>/outward/errorPage/paramsError.jsp</location>
   </error-page>
   <error-page>
     <error-code>404</error-code>
-    <location>/page/outward/errorPage/fileNotFound.jsp</location>
+    <location>/outward/errorPage/fileNotFound.jsp</location>
   </error-page>
   <welcome-file-list>
     <welcome-file>login.jsp</welcome-file>

@@ -66,7 +66,15 @@ public class TicketService {
 		return cinemaDao.queryTicketListByUserId(userId, start, limit);
 	}
 	
+	public List<Ticket> queryTicketList(Integer start, Integer limit) {
+		return cinemaDao.queryTicketListByUserId(start, limit);
+	}
+	
 	public Ticket queryTicket(Long ticketId, Long userId) {
 		return cinemaDao.queryByTicketId(ticketId, userId);
+	}
+	
+	public Ticket queryTicket(Long ticketId) {
+		return cinemaDao.queryByTicketId(ticketId);
 	}
 }

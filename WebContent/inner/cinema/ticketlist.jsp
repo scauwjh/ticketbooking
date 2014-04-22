@@ -11,12 +11,12 @@
 	<script type="text/javascript">
 		$(function(){
 			var contextPath = "<%=contextPath%>";
-			$("#update").click(function(){
-				var ticketId = $(this).prevAll("#ticketId").val();
-				top.location.href = contextPath + "/ticket?method=query&ticketId=" + ticketId;
+			$(".update").click(function(){
+				var ticketId = $(this).prevAll(".ticketId").val();
+				top.location.href = contextPath + "/inner/ticket?method=query&ticketId=" + ticketId;
 			});
-			$("#delete").click(function(){
-				var ticketId = $(this).prevAll("#ticketId").val();
+			$(".delete").click(function(){
+				var ticketId = $(this).prevAll(".ticketId").val();
 				// do some thing
 			});
 		});
@@ -44,6 +44,7 @@
 			<th width="300px">详细说明</th>
 			<th width="150px">操作</th>
 		</tr>
+<%if (list != null) { %>
 	<%for (int i = 0; i < list.size(); i++) { %>
 		<%Ticket ticket = list.get(i);%>
 		<%String date = ticket.getOnTime().toString();%>
@@ -60,11 +61,12 @@
 			<td><%=ticket.getPrevue()%></td>
 			<td><%=ticket.getTicketIntro()%></td>
 			<td>
-				<input type="hidden" value="<%=ticket.getTicketId()%>" id="ticketId" />
-				<a href="javascript:;" id="update">修改</a>&nbsp;&nbsp;<a href="javascript:;" id="delete">删除</a>
+				<input type="hidden" value="<%=ticket.getTicketId()%>" class="ticketId" />
+				<a href="javascript:;" class="update">修改</a>&nbsp;&nbsp;<a href="javascript:;" class="delete">删除</a>
 			</td>
 		</tr>
 	<%} %>
+<%} %>
 	</table>
 </body>
 </html>

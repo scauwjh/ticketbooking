@@ -31,7 +31,7 @@ public class CustomerFilter implements Filter {
 		HttpServletResponse res = (HttpServletResponse) response;
 		String user = (String) req.getSession().getAttribute(Constant.USER);
 		Byte power = (Byte)req.getSession().getAttribute(Constant.POWER);
-		if (user == null || power > 3) {
+		if (user == null || power > 2) {
 			System.out.println("power is: " + power + "request is refused");
 			String contextPath = req.getServletContext().getContextPath();
 			// System.out.println(contextPath);

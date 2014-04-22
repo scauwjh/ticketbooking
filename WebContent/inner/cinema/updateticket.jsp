@@ -22,7 +22,7 @@
 				var ticketPrice = $("#ticketPrice").val();
 				var originalPrice = $("#originalPrice").val();
 				var ticketIntro = $("#ticketIntro").val();
-				$.post(contextPath + "/ticket",
+				$.post(contextPath + "/inner/ticket",
 					{
 						method : "update",
 						ticketId : ticketId,
@@ -39,6 +39,7 @@
 					},
 					function(data) {
 						alert(data);
+						top.location.href = contextPath + "/inner/ticket?method=queryList&start=0&limit=10";
 					}
 				);// end post
 			});// end click

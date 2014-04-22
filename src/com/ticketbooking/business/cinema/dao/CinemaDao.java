@@ -33,6 +33,17 @@ public class CinemaDao extends GenericDao implements ICinemaDao {
 			ticket = list.get(0);
 		return ticket;
 	}
+	
+	@Override
+	public Ticket queryByTicketId(Long ticketId) {
+		String hql = "from Ticket t where t.ticketId = ?";
+		Ticket ticket = null;
+		@SuppressWarnings("unchecked")
+		List<Ticket> list = (List<Ticket>) HibernateUtil.createHQLQuery(hql, ticketId);
+		if (list.size() > 0)
+			ticket = list.get(0);
+		return ticket;
+	}
 
 	@SuppressWarnings("unchecked")
 	@Override
@@ -41,6 +52,13 @@ public class CinemaDao extends GenericDao implements ICinemaDao {
 		String hql = "from Ticket t where t.userId = ?";
 		return (List<Ticket>) HibernateUtil.createHQLQuery(hql,
 				userId, start, limit);
+	}
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Ticket> queryTicketListByUserId(Integer start, Integer limit) {
+		String hql = "from Ticket t";
+		return (List<Ticket>) HibernateUtil.createHQLQuery(hql, null, start, limit);
 	}
 	
 }

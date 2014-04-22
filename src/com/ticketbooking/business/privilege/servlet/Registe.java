@@ -44,19 +44,23 @@ public class Registe extends HttpServlet {
 		String method = req.getParameter(Constant.METHOD);
 		//事务开始
 		HibernateUtil.begin();
-		if (method.equals(Constant.REGISTE)) {
-			if (this.registe()) {
-				HibernateUtil.commit();
-				out.println(Constant.I_SUCCESS);
-				System.out.println("registe succeed");
-			} else {
-				HibernateUtil.rollback();
-				out.println(Constant.I_ERROR);
-				System.out.println("registe failed");
+		try{
+			if (method.equals(Constant.REGISTE)) {
+				if (this.registe()) {
+					HibernateUtil.commit();
+					out.println(Constant.I_SUCCESS);
+					System.out.println("registe succeed");
+				} else {
+					HibernateUtil.rollback();
+					out.println(Constant.I_ERROR);
+					System.out.println("registe failed");
+				}
 			}
+			else this.checkUserId();
+		} catch (Exception e) {
+			e.printStackTrace();
+			HibernateUtil.close();
 		}
-		else this.checkUserId();
-		HibernateUtil.close();
 	}
 	
 	private Boolean registe() {
@@ -68,7 +72,7 @@ public class Registe extends HttpServlet {
 			String address = request.getParameter("address");
 			String IDCard = request.getParameter("IDCard");
 			String otherCard = request.getParameter("otherCard");
-			Boolean flag = loginService.addUser(userId, password, (byte) 1);
+			Boolean flag = loginService.addUser(userId, password, (byte) 2);
 			if (flag) {
 				loginService.saveUserInfo(userId, name, telephone, address, IDCard, otherCard);
 			}

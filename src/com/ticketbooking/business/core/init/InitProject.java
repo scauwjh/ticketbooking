@@ -1,4 +1,4 @@
-package com.ticketbooking.business.debug.init;
+package com.ticketbooking.business.core.init;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -25,7 +25,7 @@ public class InitProject {
 			String sqlFilePath = System.getProperty("user.dir");
 			sqlFilePath = sqlFilePath.replace("\\", "/");
 			if (!sqlFilePath.endsWith("/")) sqlFilePath += "/";
-			sqlFilePath += "src/com/ticketbooking/business/debug/init/initDatabase.sql";
+			sqlFilePath += "src/com/ticketbooking/business/core/init/initDatabase.sql";
 			String user = "root";
 			String password = "root";
 			exec.exceSQLFile(databaseUrl, sqlFilePath, user, password);

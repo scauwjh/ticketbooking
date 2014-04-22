@@ -6,15 +6,14 @@ use ticketbooking;
 #权限表
 create table `p_role`(
 	`roleId` tinyint not null,
-	`power` tinyint not null default 3,
+	`power` tinyint not null default 2,
 	`redirection` varchar(150) not null,
 	primary key(`roleId`)
 )default character set=utf8 collate=utf8_general_ci engine=InnoDB;
 
 #初始化role表
-insert into `p_role` value (1, 1, '/page/inner/admin/index.jsp');
-insert into `p_role` value (2, 2, '/page/inner/cinema/index.jsp');
-insert into `p_role` value (3, 3, '/page/inner/customer/index.jsp');
+insert into `p_role` value (1, 1, '/inner/cinema/index.jsp');
+insert into `p_role` value (2, 2, '/inner/customer/index.jsp');
 
 #用户表
 create table `p_user`(

@@ -31,7 +31,7 @@ public class CinemaFilter implements Filter {
 		HttpServletResponse res = (HttpServletResponse) response;
 		String user = (String) req.getSession().getAttribute(Constant.USER);
 		Byte power = (Byte)req.getSession().getAttribute(Constant.POWER);
-		if (user == null || power > 2) {
+		if (user == null || power > 1) {
 			System.out.println("power is: " + power + "request is refused");
 			// System.out.println("error");
 			String contextPath = req.getServletContext().getContextPath();

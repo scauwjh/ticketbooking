@@ -17,14 +17,14 @@ import com.ticketbooking.util.HibernateUtil;
 import com.ticketbooking.domain.ticket.Ticket;
 
 
-@WebServlet("/ticket")
-public class TicketServlet extends HttpServlet {
+@WebServlet("/inner/ticket")
+public class InnerTicketServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private PrintWriter out;
 	private HttpSession session;
 	private TicketService ticketService = new TicketService();
 	
-    public TicketServlet() {
+    public InnerTicketServlet() {
         super();
     }
 
@@ -71,7 +71,7 @@ public class TicketServlet extends HttpServlet {
 				Long userId = (Long) session.getAttribute(Constant.USER_ID);
 				Ticket ticket = ticketService.queryTicket(ticketId, userId);
 				request.setAttribute("ticket", ticket);			
-				String path = "/page/inner/cinema/updateTicket.jsp";
+				String path = "/inner/cinema/updateticket.jsp";
 				request.getRequestDispatcher(path).forward(request, response);
 			} else if (method.equals("queryList")){
 				//get parameters
@@ -81,7 +81,7 @@ public class TicketServlet extends HttpServlet {
 				System.out.println(userId + "," + start + "," + limit);
 				List<Ticket> ticketList = ticketService.queryTicketList(userId, start, limit);
 				request.setAttribute("ticketList", ticketList);			
-				String path = "/page/inner/cinema/ticketList.jsp";
+				String path = "/inner/cinema/ticketlist.jsp";
 				request.getRequestDispatcher(path).forward(request, response);
 			}	
 		}catch(Exception e) {

@@ -1,4 +1,4 @@
-package com.ticketbooking.business.debug.init;
+package com.ticketbooking.business.core.init;
 
 //import com.ticketbooking.business.core.dao.GenericDao;
 //import com.ticketbooking.business.core.dao.IGenericDao;

@@ -17,6 +17,8 @@ public interface ICinemaDao extends IGenericDao {
 	 */
 	public abstract Ticket queryByTicketId(Long ticketId, Long userId);
 	
+	public abstract Ticket queryByTicketId(Long ticketId);
+	
 	/**
 	 * 通过userId和limit查询ticket列表
 	 * @param userId
@@ -25,4 +27,6 @@ public interface ICinemaDao extends IGenericDao {
 	 */
 	public abstract List<Ticket> queryTicketListByUserId(Long userId, 
 			Integer start, Integer limit);
+	
+	public abstract List<Ticket> queryTicketListByUserId(Integer start, Integer limit);
 }

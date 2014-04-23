@@ -1,0 +1,37 @@
+.container-fluid{
+	min-height:600px;
+}
+#footer{
+	margin-top:580px;
+}
+#ticketImg{
+	width:555px;
+}
+label{
+	width:80px;
+	display:block;
+	float:left;
+	text-align:right;
+	margin-left:50px;
+}
+#ticketIntro{
+	width:555px;
+	height:100px;
+}
+.publish-box{
+	width:800px;
+	margin-top:30px;
+	margin-left:-50px;
+}
+.publish-box div{
+	float:left;
+}
+.img-intro{
+	margin-top:-20px;
+	margin-left:320px;
+	display:block;
+	width:310px;
+	float:left;
+	font-size:12px;
+	color:red;
+}

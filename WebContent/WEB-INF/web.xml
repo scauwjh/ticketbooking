@@ -30,12 +30,24 @@
     <url-pattern>/customer/*</url-pattern>
   </filter-mapping>
   <error-page>
-    <error-code>500</error-code>
-    <location>/outward/errorPage/paramsError.jsp</location>
+    <error-code>403</error-code>
+    <location>/outward/error/403.html</location>
   </error-page>
   <error-page>
     <error-code>404</error-code>
-    <location>/outward/errorPage/fileNotFound.jsp</location>
+    <location>/outward/error/404.html</location>
+  </error-page>
+  <error-page>
+    <error-code>405</error-code>
+    <location>/outward/error/405.html</location>
+  </error-page>
+  <error-page>
+    <error-code>500</error-code>
+    <location>/outward/error/500.html</location>
+  </error-page>
+  <error-page>
+    <error-code>503</error-code>
+    <location>/outward/error/503.html</location>
   </error-page>
   <welcome-file-list>
     <welcome-file>login.jsp</welcome-file>

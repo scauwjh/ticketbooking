@@ -19,6 +19,10 @@ public class Logout extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
 	
+	public Logout() {
+        super();
+    }
+	
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse res) 
 			throws IOException, ServletException {
@@ -28,9 +32,11 @@ public class Logout extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse res) 
 			throws IOException, ServletException {
+		req.setCharacterEncoding(Constant.ENCODER);
+		res.setContentType(Constant.HTML_TYPE);
+		res.setCharacterEncoding(Constant.ENCODER);
 		req.getSession().removeAttribute(Constant.USER);
-		String contextPath = req.getServletContext().getContextPath();
 		System.out.println("logout succeed");
-		res.getWriter().println(contextPath + "/login.jsp?ret=0");
+		res.getWriter().println("/login.jsp?ret=0");
 	}
 }

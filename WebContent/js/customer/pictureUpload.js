@@ -57,7 +57,7 @@ function addTag(picId,showUrlId,picDivId,url){
 		str += '</div>';
 		$("body").append(str);
 		str = '<div id="shade" style="width:200px;height:200px;background:rgba(0,0,0,0.4);';
-		str +=	'line-height:200px;text-align:center;position:relative;top:-203px;display:none;">';
+		str +=	'line-height:200px;text-align:center;position:relative;top:-200px;display:none;">';
 		str +=	'<span style="font-size:25px;color:white;font-weight:bold;font-family:微软雅黑">点击上传图片</span>';
 		str += '</div>';
 		$("#"+picDivId).append(str);

@@ -45,7 +45,7 @@
 						}
 					);
 					
-					$(".details").click(function(){
+					$(".purchase").click(function(){
 						alert("买你妹");
 					});
 					
@@ -135,6 +135,10 @@
 				width:150px;
 				height:150px;
 			}
+			.operate{
+				margin-left:135px;
+				margin-top:-30px;
+			}
 		</style>
 	</head>
 	<body>
@@ -198,12 +202,10 @@
 						<div class="ticket">
 							<img src="<%=list.get(i).getTicketImg()%>" onerror="javascript:this.src='<%=contextPath%>/image/public/nopic.jpg'"/>
 							<div class="ticket-desc">
-								<div style="float:left">
-									<p>片名：<%=list.get(i).getTicketName() %></p>
-									<p>原价：<%=list.get(i).getOriginalPrice() %></p>
-									<p>现价：<%=list.get(i).getTicketPrice() %></p>
-								</div>
-								<div style="float:left;margin-left:18px;margin-top:28px;">
+								<p>片名：<%=list.get(i).getTicketName() %></p>
+								<p>原价：<%=list.get(i).getOriginalPrice() %></p>
+								<p>现价：<%=list.get(i).getTicketPrice() %></p>
+								<div class="operate">
 									<input type="hidden" class="ticketId" value="<%=list.get(i).getTicketId()%>">
 									<button class="details">详细</button>
 									<button class="purchase">购买</button>

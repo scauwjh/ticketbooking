@@ -35,6 +35,7 @@ public class TicketService {
 			if (type.equals(1)) {
 				String ticketId = req.getParameter("ticketId");
 				ticket.setTicketId(Long.parseLong(ticketId));
+				System.out.println("update ticket");
 			}
 			ticket.setCountry(req.getParameter("country"));
 			ticket.setFilmType(req.getParameter("filmType"));

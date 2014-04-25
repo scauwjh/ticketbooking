@@ -29,6 +29,10 @@ public class UploadServlet extends HttpServlet {
 		String contextPath = req.getServletContext().getRealPath("/upload");
 		filePath = contextPath;
 		tempPath = contextPath + "/temp";
+		File tmpFile = new File(filePath);
+		if (!tmpFile.exists()) tmpFile.mkdirs();
+		tmpFile = new File(tempPath);
+		if (!tmpFile.exists()) tmpFile.mkdirs();
 		PrintWriter pw = res.getWriter();
 		try {
 			DiskFileItemFactory diskFactory = new DiskFileItemFactory();

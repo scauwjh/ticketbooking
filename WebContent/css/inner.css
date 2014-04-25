@@ -35,3 +35,35 @@ label{
 	font-size:12px;
 	color:red;
 }
+#style-switcher{
+	margin-right:0px !important;
+	line-height:40px;
+	width:35px;
+}
+#style-switcher div{
+	display:none;
+	position:relative;
+	top:-40px;
+	left:50px;
+}
+#content_table{
+	text-align:center;
+	margin-top:20px;
+	margin-left:20px;
+}
+#content_table thead{
+	font-size:18px;
+	line-height:40px
+}
+#content_table tr {
+	margin-bottom:5px;
+	line-height:30px;
+}
+
+#content_table a:hover {
+	color:red;
+}
+.tr_class{
+	background:#d6d6d6;
+}
+

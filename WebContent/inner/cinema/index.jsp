@@ -80,6 +80,13 @@
 				</li>
 
 				<li>
+					<a href="<%=contextPath%>/inner/cinema/ticketlist.jsp">
+						<i class="icon icon-th-list"></i>
+						<span>电影票列表</span>
+					</a>
+				</li>
+				
+				<li>
 					<a href="javascript:;">
 						<i class="icon icon-file"></i>
 						<span>查看预订情况</span>
@@ -98,10 +105,12 @@
 		
 		<div id="style-switcher">
 			<i class="icon-arrow-left icon-white"></i>
-			<span>Style:</span>
-			<a href="#grey" style="background-color: #555555;border-color: #aaaaaa;"></a>
-			<a href="#blue" style="background-color: #2D2F57;"></a>
-			<a href="#red" style="background-color: #673232;"></a>
+			<div>
+				<span>Style:</span>
+				<a href="#grey" style="background-color: #555555;border-color: #aaaaaa;"></a>
+				<a href="#blue" style="background-color: #2D2F57;"></a>
+				<a href="#red" style="background-color: #673232;"></a>
+			</div>
 		</div>
 		
 

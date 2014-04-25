@@ -4,6 +4,7 @@
  */
 function getParameters() {
     var str = window.location.search;
+    if(str == "") return null;
     var map = new Map();
     params = new Array();
     str = decodeURI(str);

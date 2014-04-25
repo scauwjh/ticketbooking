@@ -14,6 +14,8 @@
 		<link rel="stylesheet" href="<%=contextPath%>/css/inner.css"/>
 		<script type="text/javascript" src="<%=contextPath%>/js/system/jquery-1.11.0.min.js"></script>
 		<script type="text/javascript" src="<%=contextPath%>/js/customer/inner.js"></script>
+		<script type="text/javascript" src="<%=contextPath%>/js/customer/function.js"></script>
+		<script type="text/javascript" src="<%=contextPath%>/js/customer/map.js"></script>
 		<script type="text/javascript">
 			$(function(){
 				var contextPath = "<%=contextPath%>";
@@ -26,6 +28,7 @@
 					});
 				});
 				$("#submit").click(function(){
+					var ticketId = $("#ticketId").val();
 					var ticketName = $("#ticketName").val();
 					var filmType = $("#filmType").val();
 					var language = $("#language").val();
@@ -37,7 +40,8 @@
 					var ticketImg = $("#ticketImg").val();
 					$.post(contextPath + "/inner/ticket",
 						{
-							method : "save",
+							method : "saveOrUpdaet",
+							ticketId : ticketId,
 							ticketName : ticketName,
 							filmType : filmType,
 							language : language,
@@ -54,6 +58,31 @@
 						}
 					);// end post
 				});// end click
+				var map = getParameters();
+				if (map != null) {
+					var ticketId = map.get("ticketId");
+					$.post(contextPath + "/inner/ticket",
+						{
+							method : "query",
+							ticketId : ticketId
+						},
+						function(data){
+							//alert(data);
+							var json = eval("(" + data + ")");
+							$("#ticketId").val(json.ticketId);
+							$("#ticketName").val(json.ticketName);
+							$("#filmType").val(json.filmType);
+							$("#language").val(json.language);
+							$("#country").val(json.country);
+							$("#onTime").val(json.onTime);
+							$("#ticketPrice").val(json.ticketPrice);
+							$("#originalPrice").val(json.originalPrice);
+							$("#ticketIntro").val(json.ticketIntro);
+							$("#ticketImg").val(json.ticketImg);
+							$("#refImg").attr("src", json.ticketImg);
+						}
+					);
+				}
 			});
 		</script>
 	</head>
@@ -102,12 +131,19 @@
 				</li>
 				
 				<li class="active">
-					<a href="javascript:;">
+					<a href="<%=contextPath%>/inner/cinema/publishticket.jsp">
 						<i class="icon icon-pencil"></i>
 						<span>发布电影票</span>
 					</a>
 				</li>
 
+				<li>
+					<a href="<%=contextPath%>/inner/cinema/ticketlist.jsp">
+						<i class="icon icon-th-list"></i>
+						<span>电影票列表</span>
+					</a>
+				</li>
+				
 				<li>
 					<a href="javascript:;">
 						<i class="icon icon-file"></i>
@@ -127,16 +163,19 @@
 		
 		<div id="style-switcher">
 			<i class="icon-arrow-left icon-white"></i>
-			<span>Style:</span>
-			<a href="#grey" style="background-color: #555555;border-color: #aaaaaa;"></a>
-			<a href="#blue" style="background-color: #2D2F57;"></a>
-			<a href="#red" style="background-color: #673232;"></a>
+			<div>
+				<span>Style:</span>
+				<a href="#grey" style="background-color: #555555;border-color: #aaaaaa;"></a>
+				<a href="#blue" style="background-color: #2D2F57;"></a>
+				<a href="#red" style="background-color: #673232;"></a>
+			</div>
 		</div>
+		
 		
 
 		<div id="content">
 			<div id="content-header">
-				<h1>电影票预订</h1>
+				<h1>发布电影票</h1>
 			</div>
 			<div id="breadcrumb">
 				<a href="javascript:;" title="Go to Home" class="tip-bottom"><i class="icon-home"></i>首页</a>
@@ -170,7 +209,7 @@
 						<div>
 							<label>剧照：</label><input type="text" id="ticketImg"/>
 							<div style="height:200px;width:200px;margin-left:130px;" id="tmp_picDiv">
-								<img id="refImg" width="200px" height="200px" onerror="javascript:this.src='<%=contextPath%>/image/public/nopic.jpg'"/>
+								<img id="refImg" style="width:200px;height:200px;" onerror="javascript:this.src='<%=contextPath%>/image/public/nopic.jpg'"/>
 								<span class="img-intro">*可以手动填写网络图片地址或者点击上传图片</span>
 							</div>
 							<!-- 上传图片的form -->

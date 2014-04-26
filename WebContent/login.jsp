@@ -8,6 +8,7 @@
 		<link rel="stylesheet" href="<%=contextPath%>/bootstrap/css/bootstrap.min.css" />
 		<link rel="stylesheet" href="<%=contextPath%>/bootstrap/css/bootstrap-responsive.min.css" />
         <link rel="stylesheet" href="<%=contextPath%>/bootstrap/css/unicorn.login.css" />
+        <link rel="stylesheet" href="<%=contextPath%>/css/inner.css" />
         <script type="text/javascript" src="<%=contextPath%>/js/system/jquery-1.11.0.min.js"></script>
         <script type="text/javascript" src="<%=contextPath%>/js/system/MD5.js"></script>
         <title>电影票预订系统</title>
@@ -17,6 +18,7 @@
                  * ajax login
                  */
                 var contextPath = "<%=contextPath%>";
+                $("#loading").css("display","none");
                 function login(){
                     var password = $("#password").val();
                     var user = $("#user").val();
@@ -26,7 +28,7 @@
                     }
                     password = hex_md5(password);
                     // post data to login
-                    // .....
+                    $("#loading").css("display","block");
                     $.ajax({
                         url : contextPath + "/login",
                         data : {
@@ -38,11 +40,11 @@
                             if (data == -1)
                                 alert("帐号或者密码错误");
                             else top.location.href = contextPath + data;
-                            hideLoading();
+                            $("#loading").css("display","none");
                         },
                         error : function() {
                             alert("连接失败");
-                            hideLoading();
+                            $("#loading").css("display","none");
                         }
                     });
                 }
@@ -58,13 +60,6 @@
                         login();
                     }
                 });
-                function showLoading(){
-                    $("#loading").show();
-                }
-                function hideLoading(){
-                    $("#loading").hide();
-                }
-                hideLoading();
             });
         </script>
     </head>
@@ -106,10 +101,13 @@
                    <span class="pull-left"><a href="#" class="flip-link" id="to-login">&lt; Back to login</a></span>
                    <span class="pull-right"><input type="submit" class="btn btn-inverse" value="Recover" /></span>
                </div>
-            <div id="loading">
-                <img src="<%=contextPath%>/image/public/loading.gif" alt="">
-            </div>
         </div>
+        
+        <div id="loading">
+			<div>
+				<img src="<%=contextPath%>/image/public/loading.gif">
+			</div>
+		</div>
         
         <script src="<%=contextPath%>/bootstrap/js/jquery.min.js"></script>  
         <script src="<%=contextPath%>/bootstrap/js/unicorn.login.js"></script> 

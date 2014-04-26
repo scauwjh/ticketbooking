@@ -9,9 +9,10 @@
 function pictureUpload(picId,showUrlId,picDivId,url){
 	$("#"+picId).attr("src",$("#"+showUrlId).val());
 	addTag(picId,showUrlId,picDivId,url);
+	var elementId = 'tmp_file';
 	$(document).ready(function(){
 		var ajax = function(){
-			ajaxUpload(picId,showUrlId,url);
+			ajaxUpload(picId,showUrlId,url,elementId);
 			$("#tmp_file").change(ajax);
 		};
 		$("#"+picId).mouseover(function(){
@@ -70,19 +71,21 @@ function addTag(picId,showUrlId,picDivId,url){
  * @param url
  * @return
  */
-function ajaxUpload(picId,showUrlId,url){
+function ajaxUpload(picId,showUrlId,url,elemntId){
 	$.ajaxFileUpload({
 		url:url,//用于文件上传的服务器端请求地址
 		secureuri:false,//一般设置为false
-		fileElementId:'tmp_file',//文件上传空间的id属性  <input type="file" id="file" name="file" />
+		fileElementId:elemntId,//文件上传空间的id属性  <input type="file" id="file" name="file" />
 		dataType: 'text',//返回值类型 一般设置为json
 		success: function (data, status){
 			if (data == -1) {
 				alert("上传失败！");
 				return;
 			}
-			$("#"+showUrlId).val(data);
-			$("#"+picId).attr("src", data);
+			if (showUrlId != null)
+				$("#"+showUrlId).val(data);
+			if (picId != null)
+				$("#"+picId).attr("src", data);
 		},
 		error: function (data, status, e){
 			//服务器响应失败处理函数

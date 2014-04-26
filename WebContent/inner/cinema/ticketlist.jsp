@@ -41,6 +41,7 @@
 					});
 					
 					function getTicket(start, limit) {
+						$("#loading").css("display","block");
 						$.post(contextPath + "/inner/ticket",
 							{
 								method : "queryList",
@@ -66,7 +67,7 @@
 									+ '</tr>';
 									$("#content_table").append(content);
 								}
-								
+								$("#loading").css("display","none");
 							}
 						);
 					}
@@ -189,6 +190,12 @@
 						&copy;2014. <a href="http://scauwjh.github.com/blog">wjh</a>
 					</div>
 				</div>
+			</div>
+		</div>
+		
+		<div id="loading">
+			<div>
+				<img src="<%=contextPath%>/image/public/loading.gif">
 			</div>
 		</div>
 		

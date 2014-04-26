@@ -21,12 +21,17 @@ public class UploadServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private String filePath; // 文件存放目录
 	private String tempPath; // 临时文件目录
+	private Long maxImageSize = 5 * 1024 * 1024L;// 5M
+	private Long maxVideoSize = 100 * 1024 * 1024L; // 100M
+	private String suffix = null; // 文件后缀 
 
 	// doPost
 	public void doPost(HttpServletRequest req, HttpServletResponse res)
 			throws IOException, ServletException {
+		res.setCharacterEncoding(Constant.ENCODER);
 		res.setContentType(Constant.HTML_TYPE);
 		String contextPath = req.getServletContext().getRealPath("/upload");
+		Integer fileType = Integer.parseInt(req.getParameter("fileType"));
 		filePath = contextPath;
 		tempPath = contextPath + "/temp";
 		File tmpFile = new File(filePath);
@@ -42,8 +47,7 @@ public class UploadServlet extends HttpServlet {
 			diskFactory.setRepository(new File(tempPath));
 
 			ServletFileUpload upload = new ServletFileUpload(diskFactory);
-			// 设置允许上传的最大文件大小 4M
-			upload.setSizeMax(4 * 1024 * 1024);
+			
 			// 解析HTTP请求消息头
 			List<FileItem> fileItems = upload.parseRequest(req);
 			Iterator<FileItem> iter = fileItems.iterator();
@@ -55,6 +59,21 @@ public class UploadServlet extends HttpServlet {
 					processFormField(item, pw);
 				} else {
 					System.out.println("处理上传的文件 ...");
+					// 0是图片 1是视频 -1格式不对
+					Integer type = this.checkFileName(item.getName());
+					if (type < 0 || !fileType.equals(type)) {
+						pw.println("文件格式不正确，请重新选择");
+						pw.close();
+						return;
+					}
+					Long maxSize = (type > 0) ? maxVideoSize : maxImageSize;
+					Long fileSize = item.getSize();
+					System.out.println("文件大小 : " + fileSize);
+					if (fileSize > maxSize) {
+						pw.println("文件超过限定大小，请重新选择");
+						pw.close();
+						return ;
+					}
 					fileName = processUploadFile(item, pw);
 				}
 			}// end while()
@@ -87,7 +106,6 @@ public class UploadServlet extends HttpServlet {
 		// 此时的文件名包含了完整的路径，得注意加工一下
 		String filename = item.getName();
 		System.out.println("完整的文件名：" + filename);
-		if(!checkFileName(filename)) return null;
 		int index = filename.lastIndexOf("\\");
 		filename = filename.substring(index + 1, filename.length());
 
@@ -97,23 +115,31 @@ public class UploadServlet extends HttpServlet {
 			System.out.println("文件名为空 ...");
 			return null;
 		}
-		filename = StringUtil.randString(15) + ".jpg";
+		filename = StringUtil.randString(15) + this.suffix;
 		File uploadFile = new File(filePath + "/" + filename);
 		item.write(uploadFile);
 		return filename;
 	}
 	
-	private boolean checkFileName(String checkName){
+	private Integer checkFileName(String checkName){
 		checkName = checkName.toLowerCase();
-		String[] end = {".jpg",".png",".gif"};
-		boolean flag = false;
-		for (int i = 0; i < end.length; i++) {
-			if(checkName.endsWith(end[i])) {
-				flag = true;
-				break;
+		System.out.println("check文件名：" + checkName);
+		String[] image = {".jpg", ".png", ".gif", ".avi"};
+		String[] video = {".mkv", ".rm", ".rmvb", ".mp4", ".3gp"};
+		for (int i = 0; i < image.length; i++) {
+			if(checkName.endsWith(image[i])) {
+				suffix = image[i];
+				return 0;
 			}
 		}
-		return flag;
+		for (int i = 0; i < video.length; i++) {
+			if(checkName.endsWith(video[i])) {
+				suffix = video[i];
+				return 1;
+			}
+		}
+		System.out.println("文件格式不正确");
+		return -1;
 	}
 
 	// doGet

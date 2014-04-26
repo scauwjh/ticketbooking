@@ -12,13 +12,29 @@
 		<link rel="stylesheet" href="css/unicorn.main.css" />
 		<link rel="stylesheet" href="css/unicorn.grey.css" class="skin-color" />
 		<link rel="stylesheet" href="<%=contextPath%>/css/inner.css"/>
+		<link rel="stylesheet" href="<%=contextPath%>/css/jQueryUI-1.10.4.css"/>
+		<link rel="stylesheet" href="<%=contextPath%>/css/jquery-ui-timepicker-addon.css"/>
 		<script type="text/javascript" src="<%=contextPath%>/js/system/jquery-1.11.0.min.js"></script>
+		<script type="text/javascript" src="<%=contextPath%>/js/system/jQueryUI-1.10.4.js"></script>
+		<script type="text/javascript" src="<%=contextPath%>/js/system/jquery-ui-timepicker-addon.js"></script>
 		<script type="text/javascript" src="<%=contextPath%>/js/customer/inner.js"></script>
 		<script type="text/javascript" src="<%=contextPath%>/js/customer/function.js"></script>
 		<script type="text/javascript" src="<%=contextPath%>/js/customer/map.js"></script>
+		<script type="text/javascript" src="<%=contextPath%>/js/customer/ajaxfileupload.js"></script>
+		<script type="text/javascript" src="<%=contextPath%>/js/customer/pictureUpload.js"></script>
 		<script type="text/javascript">
 			$(function(){
 				var contextPath = "<%=contextPath%>";
+				$("#onTime").datetimepicker({
+					timeText: '时间',
+					hourText: '小时',
+					minuteText: '分钟',
+					secondText: '秒',
+					currentText: '现在',
+					closeText: '完成',
+					showSecond: false, //显示秒
+					timeFormat: 'hh:mm:ss'//格式化时间
+				});
 				$(function(){
 					$("#logout").click(function(){
 						var url = contextPath + "/logout";
@@ -83,6 +99,18 @@
 						}
 					);
 				}
+				$("#prevue").click(function(){
+					$("#prevue_input").click();
+				});
+				var upload = function(){
+					var url = contextPath + '/admin/upload?fileType=1';
+					var showUrlId = "prevue";
+					var elemntId = "prevue_input";
+					ajaxUpload(null, showUrlId, url, elemntId);
+					$("#prevue_input").change(upload);
+				};
+				$("#prevue_input").change(upload);
+				
 			});
 		</script>
 	</head>
@@ -196,15 +224,22 @@
 						
 						<div><label>国家：</label><input type="text" id="country" /></div>
 						
-						<div><label>原价：</label><input type="text" id="originalPrice" /></div>
+						<div><label>原价：</label><input type="text" id="originalPrice" class="number" /></div>
 						
-						<div><label>现价：</label><input type="text" id="ticketPrice" /></div>
+						<div><label>现价：</label><input type="text" id="ticketPrice" class="number" /></div>
 						
-						<div><label>上映时间：</label><input type="text" id="onTime" /></div>
+						<div><label>上映时间：</label><input type="text" id="onTime"/></div>
 						
-						<div><label>预告片：</label><input type="text" id="onTime" /></div>
+						<div style="width:100px;"></div>
 						
 						<div><label>详细说明：</label><textarea id="ticketIntro" ></textarea></div>
+						
+						<div>
+							<form id="prevue_form" method="post" enctype="multipart/form-data">
+								<label>预告片：</label> <input type="text" id="prevue" value="点击上传视频文件，格式限制为:avi/mkv/rm/rmvb/mp4/3gp"/>
+								<input type="file" id="prevue_input" name="prevue_input" style="display:none"/>
+							</form>
+						</div>
 						
 						<div>
 							<label>剧照：</label><input type="text" id="ticketImg"/>
@@ -212,9 +247,6 @@
 								<img id="refImg" style="width:200px;height:200px;" onerror="javascript:this.src='<%=contextPath%>/image/public/nopic.jpg'"/>
 								<span class="img-intro">*可以手动填写网络图片地址或者点击上传图片</span>
 							</div>
-							<!-- 上传图片的form -->
-							<script type="text/javascript" src="<%=contextPath%>/js/customer/ajaxfileupload.js"></script>
-							<script type="text/javascript" src="<%=contextPath%>/js/customer/pictureUpload.js"></script>
 							<script type="text/javascript">
 								/* code by @wjh */
 								$(document).ready(function(){
@@ -226,7 +258,7 @@
 									 * 4.url是上传图片的action
 									 */
 									var contextPath = "<%=contextPath%>";
-									var url = contextPath + '/admin/upload';
+									var url = contextPath + '/admin/upload?fileType=0';
 									pictureUpload("refImg", "ticketImg", "tmp_picDiv", url);
 								});
 								/* end code by */

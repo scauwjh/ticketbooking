@@ -5,7 +5,7 @@ import java.util.Date;
 
 /** 
  * @author wjh E-mail: 472174314@qq.com
- * ticketRecord持久化类，对应数据库的t_ticket_record表
+ * ticketRecord持久化类，对应数据库的t_ticket_record表(购买记录)
  */
 public class TicketRecord implements Serializable {
 
@@ -17,9 +17,9 @@ public class TicketRecord implements Serializable {
 	
 	private Long ticketId;
 	
-	private Byte checked;
+	private Byte checked;//管理员是否确认订购
 	
-	private Date orderDate;
+	private Date orderDate;//订购时间
 
 	public Long getId() {
 		return id;

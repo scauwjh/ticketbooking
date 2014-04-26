@@ -13,29 +13,29 @@ public class Ticket implements Serializable {
 	
 	private Long ticketId;
 	
-	private Long userId;
+	private Long userId;//哪个user发布的
 	
 	private String ticketName;
 	
 	private Float ticketPrice;
 
-	private Float originalPrice;
+	private Float originalPrice;//原价
 	
-	private Date onTime;
+	private Date onTime;//上映时间
 	
 	private String country;
 	
-	private String filmType;
+	private String filmType;//电影的类型（喜剧）
 	
 	private String language;
 	
 	private String ticketIntro;
 	
-	private String ticketImg;
+	private String ticketImg;//剧照
 	
-	private String prevue;
+	private String prevue;//预告片
 	
-	private Date releaseTime;
+	private Date releaseTime;//发布时间
 
 
 	public Long getUserId() {

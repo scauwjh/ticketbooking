@@ -41,7 +41,7 @@ public class UploadServlet extends HttpServlet {
 		PrintWriter pw = res.getWriter();
 		try {
 			DiskFileItemFactory diskFactory = new DiskFileItemFactory();
-			// threshold 极限、临界值，即硬盘缓存 1M
+			// threshold 极限、临界值，即硬盘缓存 4M
 			diskFactory.setSizeThreshold(4 * 1024);
 			// repository 贮藏室，即临时文件目录
 			diskFactory.setRepository(new File(tempPath));

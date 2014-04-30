@@ -95,6 +95,13 @@ public class ITicketServlet extends HttpServlet {
 				Ticket ticket = ticketService.queryTicket(ticketId, userId);
 				JSONObject json = JSONObject.fromObject(ticket, JSONConfig.getInstance());
 				out.println(json);
+			} else if(method.equals("delete")) {
+				Long ticketId = Long
+						.parseLong(request.getParameter("ticketId"));
+				Boolean flag = ticketService.deleteTicket(ticketId);
+				if (flag) out.println("删除成功");
+				else out.println("删除失败");
+				HibernateUtil.commit();
 			}
 		} catch (Exception e) {
 			e.printStackTrace();

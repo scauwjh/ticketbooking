@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.ticketbooking.business.core.dao.GenericDao;
 import com.ticketbooking.domain.ticket.Ticket;
+import com.ticketbooking.domain.ticket.TicketRecord;
 import com.ticketbooking.util.HibernateUtil;
 
 /** 
@@ -14,11 +15,12 @@ import com.ticketbooking.util.HibernateUtil;
  */
 public class CinemaDao extends GenericDao implements ICinemaDao {
 	
+	// 单例设计模式
 	private static class SingletonInstance {
 		private static final CinemaDao instance = 
 				new CinemaDao();
 	}
-	
+	// 获取实例
 	public static CinemaDao getInstance() {
 		return SingletonInstance.instance;
 	}
@@ -59,6 +61,24 @@ public class CinemaDao extends GenericDao implements ICinemaDao {
 	public List<Ticket> queryTicketListByUserId(Integer start, Integer limit) {
 		String hql = "from Ticket t";
 		return (List<Ticket>) HibernateUtil.createHQLQuery(hql, null, start, limit);
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<TicketRecord> queryTicketRecordByUserId(Long userId, Integer start, Integer limit) {
+		String hql = "from TicketRecord tr where tr.userId = ?";
+		return (List<TicketRecord>) HibernateUtil.createHQLQuery(hql, userId, start, limit);
+	}
+
+	@Override
+	public TicketRecord queryTicketRecordByUserId(Long userId,
+			Long ticketId) {
+		String hql = "from TicketRecord tr where tr.userId = ? and ticketId = ?";
+		@SuppressWarnings("unchecked")
+		List<TicketRecord> list = (List<TicketRecord>) HibernateUtil.createHQLQuery(hql, userId, ticketId);
+		if (list.size() > 0)
+			return list.get(0);
+		return null;
 	}
 	
 }

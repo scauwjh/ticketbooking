@@ -38,6 +38,16 @@
 					$(document).on("click", ".delete", function(){
 						var ticketId = $(this).prevAll(".ticketId").val();
 						// do some thing
+						$.post(contextPath + "/inner/ticket",
+							{
+								method : "delete",
+								ticketId : ticketId
+							},
+							function(data) {
+								alert(data);
+								window.location.reload();
+							}
+						);
 					});
 					
 					function getTicket(start, limit) {
@@ -163,7 +173,7 @@
 
 		<div id="content">
 			<div id="content-header">
-				<h1>电影票预订</h1>
+				<h1>电影票列表</h1>
 			</div>
 			<div id="breadcrumb">
 				<a href="javascript:;" title="Go to Home" class="tip-bottom"><i class="icon-home"></i>首页</a>

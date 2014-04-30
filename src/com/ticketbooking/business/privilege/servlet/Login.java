@@ -45,20 +45,38 @@ public class Login extends HttpServlet {
 		String password = req.getParameter(Constant.PASSWORD); // md5 password
 		//事务开始
 		HibernateUtil.begin();
-		User user = loginService.login(userId, password);
-		if (user != null) {
-			// set session
-			String redirect = user.getRole().getRedirection();
-			session.setAttribute(Constant.USER_ID, user.getId());
-			session.setAttribute(Constant.USER, user.getUserId());
-			session.setAttribute(Constant.POWER, user.getRole().getPower());
-			System.out.println(userId + " login succeed");
-			out.println(redirect);
+		try{
+			String method = req.getParameter("method");
+			if (method == null) {
+				User user = loginService.login(userId, password);
+				if (user != null) {
+					// set session
+					String redirect = user.getRole().getRedirection();
+					session.setAttribute(Constant.USER_ID, user.getId());
+					session.setAttribute(Constant.USER, user.getUserId());
+					session.setAttribute(Constant.POWER, user.getRole().getPower());
+					System.out.println(userId + " login succeed");
+					out.println(redirect);
+				}
+				else {
+					System.out.println(userId + " login failed");
+					out.println(Constant.LOGIN_ERROR);
+				}
+			}
+			else if(method.equals("check")) {
+				String user = (String) session.getAttribute(Constant.USER);
+				if (user != null) {
+					System.out.println(user + " is login");
+					out.println(user);
+				} else{
+					System.out.println("is not login");
+					out.println(0);
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			out.println(Constant.LOGIN_ERROR);
 			HibernateUtil.close();
-			return;
 		}
-		System.out.println(userId + " login failed");
-		out.println(Constant.LOGIN_ERROR);
-		HibernateUtil.close();
 	}
 }

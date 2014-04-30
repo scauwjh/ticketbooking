@@ -9,16 +9,18 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
 import com.ticketbooking.business.cinema.service.TicketService;
 import com.ticketbooking.business.core.constant.Constant;
 import com.ticketbooking.util.HibernateUtil;
+import com.ticketbooking.util.JSONConfig;
 import com.ticketbooking.domain.ticket.Ticket;
 
 
 /**
- * inner ticket servlet
+ * outward ticket servlet
  * @author wjh
  */
 @WebServlet("/outward/ticket")
@@ -45,14 +47,20 @@ public class OTicketServlet extends HttpServlet {
 			String method = (String) request.getParameter(Constant.METHOD);
 			System.out.println(method);
 			// do something
-			if (method == null) {
+			if (method == null || method.equals("queryList")) {
 				//get parameters
 				Integer start = 0;
 				Integer limit = 12;
+				try {
+					start = Integer.parseInt(request.getParameter("start"));
+					limit = Integer.parseInt(request.getParameter("limit"));
+				} catch (Exception e) {
+					start = 0;
+					limit = 12;
+				}
 				List<Ticket> ticketList = ticketService.queryTicketList(start, limit);
-				request.setAttribute("ticketList", ticketList);			
-				String path = "/outward/ticketlist.jsp";
-				request.getRequestDispatcher(path).forward(request, response);
+				JSONArray json = JSONArray.fromObject(ticketList, JSONConfig.getInstance());
+				response.getWriter().println(json);
 			} else if (method.equals("query")) {
 				//get parameters
 				Long ticketId = Long.parseLong(request.getParameter("ticketId"));
@@ -61,14 +69,6 @@ public class OTicketServlet extends HttpServlet {
 				json.element("onTime", ticket.getOnTime().toString());
 				json.element("releaseTime", ticket.getReleaseTime().toString());
 				response.getWriter().println(json.toString());
-			} else if (method.equals("queryList")){
-				//get parameters
-				Integer start = Integer.parseInt(request.getParameter("start"));
-				Integer limit = Integer.parseInt(request.getParameter("limit"));
-				List<Ticket> ticketList = ticketService.queryTicketList(start, limit);
-				request.setAttribute("ticketList", ticketList);			
-				String path = "/outward/ticketlist.jsp";
-				request.getRequestDispatcher(path).forward(request, response);
 			}
 		}catch(Exception e) {
 			e.printStackTrace();

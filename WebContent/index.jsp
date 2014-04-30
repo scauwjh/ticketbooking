@@ -10,11 +10,101 @@
 		<title>电影票预定系统</title>
 		<link href="http://fonts.googleapis.com/css?family=Arvo" rel="stylesheet" type="text/css" />
 		<link rel="stylesheet" type="text/css" href="<%=contextPath%>/css/style.css" />
+		<link rel="stylesheet" type="text/css" href="<%=contextPath%>/css/inner.css" />
 		<script src="<%=contextPath%>/js/system/jquery-1.11.0.min.js"></script>
 		<script type="text/javascript">
 			$(function(){
 				var contextPath = "<%=contextPath%>";
-				$(".details").click(function(){
+				
+				function init(list) {
+					var content = null;
+					for (var i = 0; i < list.length; i++) {	
+						content = '<div class="ticket">';
+						content += '<img src="'+  list[i].ticketImg
+						+ '" onerror="javascript:this.src=\''
+						+ contextPath + '/image/public/nopic.jpg\'"/>'
+						+ '<div class="ticket-desc">'
+						+ '<p>片名：' + list[i].ticketName + '</p>'
+						+ '<p>原价：' + list[i].originalPrice + '</p>'
+						+ '<p>现价：' + list[i].ticketPrice + '</p>'
+						+ '<div class="operate">'
+						+ '<input type="hidden" class="ticketId" value="' + list[i].ticketId + '">'
+						+ '<button class="details">详细</button>'
+						+ '<button class="purchase">购买</button>'
+						+ '</div>'
+						+ '</div>'
+						+ '</div>';
+						$("#main_box").append(content);
+					}
+				}
+				
+				function queryTicket(start, limit) {
+					$.post(contextPath + "/outward/ticket",
+						{
+							method : "queryList",
+							start : start,
+							limit : limit
+						},
+						function(data){
+							// alert(data);
+							var list = eval("(" + data + ")");
+							init(list);
+						}
+					);
+				}
+				
+				var isLogin = false;
+				var user = null;
+				
+				function checkLogin() {
+					$.ajaxSettings.async = false;
+					$.post(contextPath + "/login", 
+						{
+							method : "check",
+						},
+						function(data) {
+							if(data != 0) {
+								isLogin = true;
+								user = data;
+							}
+						}
+					);
+					$.ajaxSettings.async = true;
+				}
+				
+				function loginMessage() {
+					if (isLogin) {
+						$("#to_login").css("display", "none");
+						$("#login_box").css("display", "block");
+						var tmp = user + "&nbsp;";
+						$("#userName").html(tmp);
+					}
+				}
+				
+				// 查询ticket列表
+				queryTicket(0, 12);
+				// 检查是否登录
+				checkLogin();
+				loginMessage();
+				
+				$(document).on("click", ".purchase", function(){
+					checkLogin();
+					if (!isLogin) {
+						alert("请先登录");
+						return;
+					}
+					var ticketId = $(this).prevAll(".ticketId").val();
+					$.post(contextPath + "/inner/buyticket",
+						{
+							ticketId : ticketId
+						},
+						function(data){
+							alert(data);
+						}
+					);
+				});
+				
+				$(document).on("click", ".details", function(){
 					var ticketId = $(this).prevAll(".ticketId").val();
 					$.post(contextPath + "/outward/ticket",
 						{
@@ -45,13 +135,16 @@
 						}
 					);
 					
-					$(".purchase").click(function(){
-						alert("买你妹");
-					});
-					
 					$(document).on("click", ".close", function(){
 						$(".details-box").remove();
 						$(".full-screen-shade").remove();
+					});
+				});
+				
+				$("#logout").click(function(){
+					var url = contextPath + "/logout";
+					$.post(url, function(data){
+						window.location.reload();
 					});
 				});
 			});
@@ -136,8 +229,28 @@
 				height:150px;
 			}
 			.operate{
-				margin-left:135px;
+				margin-left:130px;
 				margin-top:-30px;
+			}
+			.operate .purchase{
+				margin-left:10px;
+			}
+			#to_login{
+				margin-left:1010px;
+				margin-top:-115px;
+				font-size:12px;
+			}
+			a:hover{
+				color:red !important;
+			}
+			#login_box{
+				display:none;
+				margin-left:1010px;
+				margin-top:-115px;
+				font-size:12px;
+			}
+			#userName{
+				color:red;
 			}
 		</style>
 	</head>
@@ -176,15 +289,21 @@
 							<a href="javascript:;">河蟹天堂</a>
 						</li>
 						<li>
-							<a href="javascript:;">抢票活动</a>
-						</li>
-						<li>
 							<a href="javascript:;">留言天地</a>
 						</li>
 						<li class="last">
 							<a href="javascript:;">联系我们</a>
 						</li>
 					</ul><br class="clear" />
+					<div id="login_box">
+						<span id="userName"></span> 
+						<span>欢迎登录</span> |
+						<a href="javascript:;" id="logout"> 退出</a> 
+					</div>
+					<div id="to_login"> 
+						<a href="<%=contextPath%>/login.jsp">登录 </a>|
+						<a href="<%=contextPath%>/registe.jsp">注册</a>
+					</div>
 				</div>
 			</div>
 			<div id="banner">
@@ -196,24 +315,7 @@
 			<div id="main">
 				<div id="content">
 					<div id="main_box">
-				<%List<Ticket> list = (List<Ticket>) request.getAttribute("ticketList"); %>
-				<%if (list != null) { %>
-					<%for (int i = 0; i < list.size(); i++) { %>
-						<div class="ticket">
-							<img src="<%=list.get(i).getTicketImg()%>" onerror="javascript:this.src='<%=contextPath%>/image/public/nopic.jpg'"/>
-							<div class="ticket-desc">
-								<p>片名：<%=list.get(i).getTicketName() %></p>
-								<p>原价：<%=list.get(i).getOriginalPrice() %></p>
-								<p>现价：<%=list.get(i).getTicketPrice() %></p>
-								<div class="operate">
-									<input type="hidden" class="ticketId" value="<%=list.get(i).getTicketId()%>">
-									<button class="details">详细</button>
-									<button class="purchase">购买</button>
-								</div>
-							</div>
-						</div>
-					<%} %>
-				<%} %>
+				
 					</div>
 				</div>
 			</div>

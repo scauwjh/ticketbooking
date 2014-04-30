@@ -11,6 +11,7 @@ import com.ticketbooking.business.cinema.dao.CinemaDao;
 import com.ticketbooking.business.cinema.dao.ICinemaDao;
 import com.ticketbooking.business.core.constant.Constant;
 import com.ticketbooking.domain.ticket.Ticket;
+import com.ticketbooking.domain.ticket.TicketRecord;
 
 /** 
  * @author wjh E-mail: 472174314@qq.com
@@ -77,5 +78,35 @@ public class TicketService {
 	
 	public Ticket queryTicket(Long ticketId) {
 		return cinemaDao.queryByTicketId(ticketId);
+	}
+	
+	public List<TicketRecord> queryTicketRecord(Long userId, Integer start, Integer limit) {
+		return cinemaDao.queryTicketRecordByUserId(userId, start, limit);
+	}
+	
+	public Boolean deleteTicket(Long ticketId) {
+		Ticket ticket = cinemaDao.queryByTicketId(ticketId);
+		if (ticket == null) return false;
+		cinemaDao.delete(ticket);
+		return true;
+	}
+	
+	/**
+	 * 预定ticket
+	 * @param userId
+	 * @param ticketId
+	 * @return
+	 * @throws Exception
+	 */
+	public Boolean buyTicket(Long userId, Long ticketId) throws Exception {
+		TicketRecord ticketRecord = cinemaDao.queryTicketRecordByUserId(userId, ticketId);
+		if (ticketRecord != null) return false;
+		ticketRecord = new TicketRecord();
+		ticketRecord.setTicketId(ticketId);
+		ticketRecord.setUserId(userId);
+		ticketRecord.setOrderDate(new Date());
+		ticketRecord.setChecked((byte) 0);
+		cinemaDao.saveOrUpdate(ticketRecord);
+		return true;
 	}
 }

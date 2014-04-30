@@ -17,9 +17,9 @@ public class TicketRecord implements Serializable {
 	
 	private Long ticketId;
 	
-	private Byte checked;
+	private Byte checked;// 0 is not check 1 is checked
 	
-	private Date orderDate;
+	private Date orderDate;// 订购时间
 
 	public Long getId() {
 		return id;

@@ -115,7 +115,7 @@
 					{
 						method : "registe",
 						userId : userId,
-						password : password,
+						password : hex_md5(password),
 						name : name,
 						telephone : telephone,
 						address : address,

@@ -5,7 +5,7 @@ import java.util.Date;
 
 /** 
  * @author wjh E-mail: 472174314@qq.com
- * ticketRecord持久化类，对应数据库的t_ticket_record表
+ * ticketRecord持久化类，对应数据库的t_ticket_record表(购买记录)
  */
 public class TicketRecord implements Serializable {
 

@@ -128,7 +128,10 @@
 						otherCard : otherCard
 					},
 					function(data) {
-						alert(data);
+						if (data == 1) {
+							alert("注册成功!");
+							top.location.href = contextPath + "/login.jsp";
+						}
 					}
 				);
 			}

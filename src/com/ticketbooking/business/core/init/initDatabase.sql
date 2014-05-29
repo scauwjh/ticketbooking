@@ -13,7 +13,7 @@ create table `p_role`(
 
 #初始化role表
 insert into `p_role` value (1, 1, '/inner/cinema/index.jsp');
-insert into `p_role` value (2, 2, '/inner/customer/index.jsp');
+insert into `p_role` value (2, 2, '/index.jsp');
 
 #用户表
 create table `p_user`(

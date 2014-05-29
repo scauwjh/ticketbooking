@@ -1,0 +1,105 @@
+#main{
+	min-height:950px;
+	background-image:url(/ticketbooking/image/public/bg.png);
+	background-size:100% 100%;
+	background-repeat:no-repeat;
+}
+#main_box table, th, tr, td{
+	border:1px solid;
+	text-align:center;
+}
+#main_box img{
+	 width:200px;
+	 height:200px;
+}
+#main_box p{
+	font-size:13px;
+	line-height:15px;
+	color:#333;
+	margin-bottom:5px;
+}
+#main_box{
+	width:900px;
+	margin-left:-135px;
+}
+#main_box div{
+	margin-right:20px;
+	margin-bottom:30px;
+}
+#main_box .ticket{
+	float:left;
+	width:200px;
+	height:260px;
+}
+#main_box .ticket-desc{
+	width:250px;
+}
+.details-box{
+	position:fixed;
+	top:35%;
+	width:100%;
+	height:300px;
+	z-index:2014;
+}
+.details-center-box{
+	margin-right:auto;
+	margin-left:auto;
+	z-index:2015;
+	width:500px;
+	height:300px;
+	background:#fff;
+	border-radius:5px;
+	border:1px solid #ccc;
+}
+.details-box p{
+	margin-top:20px;
+	margin-left:20px;
+	font-size:18px;
+	line-height:10px;
+	color:#333;
+}
+.details-box .close{
+	position:relative;
+	top:-280px;
+	left:460px;
+	z-index:2016;
+	width:30px;
+	height:28px;
+	background:url(/ticketbooking/image/public/back.png);
+}
+.details-img{
+	position:relative;
+	top:-230px;
+	left:310px;
+	z-index:2016;
+	width:150px;
+	height:150px;
+}
+.details-img img{
+	width:150px;
+	height:150px;
+}
+.operate{
+	margin-left:130px;
+	margin-top:-30px;
+}
+.operate .purchase{
+	margin-left:10px;
+}
+#to_login{
+	margin-left:1010px;
+	margin-top:-115px;
+	font-size:12px;
+}
+a:hover{
+	color:red !important;
+}
+#login_box{
+	display:none;
+	margin-left:1010px;
+	margin-top:-115px;
+	font-size:12px;
+}
+#userName{
+	color:red;
+}

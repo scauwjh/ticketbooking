@@ -2,6 +2,7 @@
 <%@page import="com.ticketbooking.domain.ticket.Ticket" %>
 <%@page import="java.util.List" %>
 <%String contextPath = request.getServletContext().getContextPath();%>
+<%Long userId = (Long) request.getSession().getAttribute("userId");%>
 <!DOCTYPE html>
 <html>
 	<head>
@@ -15,6 +16,7 @@
 		<script src="<%=contextPath%>/js/system/jquery-1.11.0.min.js"></script>
 		<script type="text/javascript">
 		var contextPath = "<%=contextPath%>";
+		var userId = <%=userId%>;
 		</script>
 		<script src="<%=contextPath%>/js/customer/ticketrecord.js"></script>
 	</head>
@@ -44,7 +46,7 @@
 							<a href="javascript:;">订购记录</a>
 						</li>
 						<li>
-							<a href="javascript:;">个人信息</a>
+							<a href="userinfo.jsp">个人信息</a>
 						</li>
 						<li>
 							<a href="javascript:;">在线影院</a>

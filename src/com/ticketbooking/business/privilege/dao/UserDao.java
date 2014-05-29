@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.ticketbooking.business.core.dao.GenericDao;
 import com.ticketbooking.domain.privilege.User;
+import com.ticketbooking.domain.privilege.UserInfo;
 import com.ticketbooking.util.HibernateUtil;
 
 /** 
@@ -26,12 +27,21 @@ public class UserDao extends GenericDao implements IUserDao {
 	@Override
 	public User queryByUserId(String userId) {
 		String hql = "from User u where u.userId = ?";
-		User user = null;
 		@SuppressWarnings("unchecked")
 		List<User> list = (List<User>) HibernateUtil.createHQLQuery(hql, userId);
 		if (list.size() > 0)
-			user = list.get(0);
-		return user;
+			return list.get(0);
+		return null;
+	}
+
+	@Override
+	public UserInfo queryUserInfoByUserId(Long userId) {
+		String hql = "from UserInfo u where u.userId = ?";
+		@SuppressWarnings("unchecked")
+		List<UserInfo> list = (List<UserInfo>) HibernateUtil.createHQLQuery(hql, userId);
+		if (list.size() > 0)
+			return list.get(0);
+		return null;
 	}
 	
 }

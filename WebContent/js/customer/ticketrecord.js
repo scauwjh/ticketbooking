@@ -65,7 +65,10 @@ $(function(){
 	// 检查是否登录
 	checkLogin();
 	loginMessage();
-	if (isLogin) queryTicketRecord(0, 12);
+	if (isLogin)
+		queryTicketRecord(0, 12);
+	else 
+		$("#main_box").append('<b style="font-size:25px;margin-left:-100px;color:red;">请先登录<b>');
 	
 	$("#logout").click(function(){
 		var url = contextPath + "/logout";

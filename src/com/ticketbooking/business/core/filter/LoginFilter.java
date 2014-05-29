@@ -30,12 +30,21 @@ public class LoginFilter implements Filter {
 		HttpServletRequest req = (HttpServletRequest) request;
 		HttpServletResponse res = (HttpServletResponse) response;
 		String user = (String) req.getSession().getAttribute(Constant.USER);
+		String contextPath = req.getServletContext().getContextPath();
 		if (user == null) {
-			// System.out.println("error");
-			String contextPath = req.getServletContext().getContextPath();
+			System.out.println("no login status");
 			// System.out.println(contextPath);
 			res.sendRedirect(contextPath + "/login.jsp?ret=-1");
 			return;
+		}
+		String userId = req.getParameter("userId");
+		Long sessionId = (Long)req.getSession().getAttribute(Constant.USER_ID);
+		if (userId != null) {
+			if (!userId.equals(sessionId.toString())) {
+				System.out.println("illegal request: userId is not conform");
+				res.sendRedirect(contextPath + "/index.jsp");
+				return;
+			}
 		}
 		chain.doFilter(request, response);
 	}

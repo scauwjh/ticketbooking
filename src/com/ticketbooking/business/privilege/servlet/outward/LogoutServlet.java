@@ -1,4 +1,4 @@
-package com.ticketbooking.business.privilege.servlet;
+package com.ticketbooking.business.privilege.servlet.outward;
 
 import java.io.IOException;
 
@@ -15,11 +15,11 @@ import com.ticketbooking.business.core.constant.Constant;
  * @version 创建时间：2014年3月30日 下午9:46:58
  */
 @WebServlet("/logout")
-public class Logout extends HttpServlet {
+public class LogoutServlet extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
 	
-	public Logout() {
+	public LogoutServlet() {
         super();
     }
 	
@@ -36,6 +36,8 @@ public class Logout extends HttpServlet {
 		res.setContentType(Constant.HTML_TYPE);
 		res.setCharacterEncoding(Constant.ENCODER);
 		req.getSession().removeAttribute(Constant.USER);
+		req.getSession().removeAttribute(Constant.USER_ID);
+		req.getSession().removeAttribute(Constant.POWER);
 		System.out.println("logout succeed");
 		res.getWriter().println("/login.jsp?ret=0");
 	}

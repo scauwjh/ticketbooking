@@ -1,4 +1,4 @@
-package com.ticketbooking.business.privilege.servlet;
+package com.ticketbooking.business.privilege.servlet.outward;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -22,7 +22,7 @@ import com.ticketbooking.util.HibernateUtil;
  *
  */
 @WebServlet("/login")
-public class Login extends HttpServlet {
+public class LoginServlet extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
 	private LoginService loginService = new LoginService();

@@ -44,7 +44,7 @@
 							<a href="ticketrecord.jsp">订购记录</a>
 						</li>
 						<li>
-							<a href="javascript:;">个人信息</a>
+							<a href="userinfo.jsp">个人信息</a>
 						</li>
 						<li>
 							<a href="javascript:;">在线影院</a>

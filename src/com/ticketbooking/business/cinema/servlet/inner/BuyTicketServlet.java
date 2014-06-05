@@ -1,4 +1,4 @@
-package com.ticketbooking.business.cinema.servlet;
+package com.ticketbooking.business.cinema.servlet.inner;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -104,7 +104,7 @@ public class BuyTicketServlet extends HttpServlet {
 		HibernateUtil.begin();
 		List<Ticket> ticket = new ArrayList<Ticket>();
 		for (int i = 0; i < ticketRecord.size(); i++) {
-			Ticket tmp = ticketService.queryTicket(ticketRecord.get(i).getTicketId());
+			Ticket tmp = ticketService.queryTicket(ticketRecord.get(i).getTicketId().getTicketId());
 			ticket.add(tmp);
 		}
 		//commit transaction

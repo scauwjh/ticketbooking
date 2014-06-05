@@ -3,6 +3,8 @@ package com.ticketbooking.domain.ticket;
 import java.io.Serializable;
 import java.util.Date;
 
+import com.ticketbooking.domain.privilege.User;
+
 /** 
  * @author wjh E-mail: 472174314@qq.com
  * ticketRecord持久化类，对应数据库的t_ticket_record表(购买记录)
@@ -13,9 +15,9 @@ public class TicketRecord implements Serializable {
 	
 	private Long id;
 	
-	private Long userId;
+	private User userId;
 	
-	private Long ticketId;
+	private Ticket ticketId;
 	
 	private Byte checked;// 0 is not check 1 is checked
 	
@@ -27,22 +29,6 @@ public class TicketRecord implements Serializable {
 
 	public void setId(Long id) {
 		this.id = id;
-	}
-
-	public Long getUserId() {
-		return userId;
-	}
-
-	public void setUserId(Long userId) {
-		this.userId = userId;
-	}
-
-	public Long getTicketId() {
-		return ticketId;
-	}
-
-	public void setTicketId(Long ticketId) {
-		this.ticketId = ticketId;
 	}
 
 	public Byte getChecked() {
@@ -59,5 +45,21 @@ public class TicketRecord implements Serializable {
 
 	public void setOrderDate(Date orderDate) {
 		this.orderDate = orderDate;
+	}
+
+	public User getUserId() {
+		return userId;
+	}
+
+	public void setUserId(User userId) {
+		this.userId = userId;
+	}
+
+	public Ticket getTicketId() {
+		return ticketId;
+	}
+
+	public void setTicketId(Ticket ticketId) {
+		this.ticketId = ticketId;
 	}
 }

@@ -146,34 +146,34 @@
         </div>
             
 		<div id="sidebar">
-			<a href="javascript:;" class="visible-phone">
+			<a href="index.jsp" class="visible-phone">
 				<i class="icon icon-home"></i>首页
 			</a>
 
 			<ul>
 				<li>
-					<a href="<%=contextPath%>/inner/cinema/index.jsp">
+					<a href="index.jsp">
 						<i class="icon icon-home"></i>
 						<span>首页</span>
 					</a>
 				</li>
 				
 				<li class="active">
-					<a href="<%=contextPath%>/inner/cinema/publishticket.jsp">
+					<a href="publishticket.jsp">
 						<i class="icon icon-pencil"></i>
 						<span>发布电影票</span>
 					</a>
 				</li>
 
 				<li>
-					<a href="<%=contextPath%>/inner/cinema/ticketlist.jsp">
+					<a href="ticketlist.jsp">
 						<i class="icon icon-th-list"></i>
 						<span>电影票列表</span>
 					</a>
 				</li>
 				
 				<li>
-					<a href="javascript:;">
+					<a href="handlebooking.jsp">
 						<i class="icon icon-file"></i>
 						<span>查看预订情况</span>
 					</a>
@@ -206,8 +206,8 @@
 				<h1>发布电影票</h1>
 			</div>
 			<div id="breadcrumb">
-				<a href="javascript:;" title="Go to Home" class="tip-bottom"><i class="icon-home"></i>首页</a>
-				<a href="javascript:;" title="publish ticket" class="tip-bottom">发布电影</a>
+				<a href="index.jsp" title="Go to Home" class="tip-bottom"><i class="icon-home"></i>首页</a>
+				<a href="publishticket.jsp" title="publish ticket" class="tip-bottom">发布电影</a>
 			</div>
 			<div class="container-fluid">
 				<!-- main container -->

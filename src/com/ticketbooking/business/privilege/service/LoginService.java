@@ -26,11 +26,11 @@ public class LoginService extends GenericDao{
 	 * @param md5Password
 	 * @return
 	 */
-	public Boolean addUser(String userId, String md5Password, Byte roleId) {
-		User user = userDao.queryByUserId(userId);
+	public Boolean addUser(String account, String md5Password, Byte roleId) {
+		User user = userDao.queryByAccount(account);
 		if (user == null) {
 			user = new User();
-			user.setUserId(userId);
+			user.setAccount(account);
 			user.setCreateDate(new Date());
 			String token = StringUtil.randString(32);
 			String saltPass = addSalt(md5Password, token); // md5密码加盐再写入数据库
@@ -54,12 +54,12 @@ public class LoginService extends GenericDao{
 	 * @param otherCard
 	 * @return
 	 */
-	public void saveUserInfo(String userId, String name, String telephone,
+	public void saveUserInfo(String account, String name, String telephone,
 			String address, String IDCard, String otherCard) {
 		UserInfo userInfo = new UserInfo();
-		User user = userDao.queryByUserId(userId);
+		User user = userDao.queryByAccount(account);
 		if (user != null) 
-			userInfo.setUserId(user.getId());
+			userInfo.setUserId(user.getUserId());
 		if(!address.equals("0"))
 			userInfo.setAddress(address);
 		if(!IDCard.equals("0"))
@@ -78,8 +78,8 @@ public class LoginService extends GenericDao{
 	 * @param userId
 	 * @return
 	 */
-	public Boolean checkUserId(String userId) {
-		if (userDao.queryByUserId(userId) != null)
+	public Boolean checkAccount(String account) {
+		if (userDao.queryByAccount(account) != null)
 			return false;
 		return true;
 	}
@@ -91,8 +91,8 @@ public class LoginService extends GenericDao{
 	 * @param newPass
 	 * @return
 	 */
-	public Boolean updatePassword(String userId, String oldPass, String newPass) {
-		User user = userDao.queryByUserId(userId);
+	public Boolean updatePassword(String account, String oldPass, String newPass) {
+		User user = userDao.queryByAccount(account);
 		if (user == null) {
 			System.out.println("no such user");
 			return false;
@@ -118,8 +118,8 @@ public class LoginService extends GenericDao{
 	 * @param password
 	 * @return
 	 */
-	public User login(String userId, String md5Pass) {
-		User user = userDao.queryByUserId(userId);
+	public User login(String account, String md5Pass) {
+		User user = userDao.queryByAccount(account);
 		if (user == null) {
 			System.out.println("no such user");
 			return null;

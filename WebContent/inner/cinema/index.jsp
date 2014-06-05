@@ -60,34 +60,34 @@
         </div>
             
 		<div id="sidebar">
-			<a href="javascript:;" class="visible-phone">
+			<a href="index.jsp" class="visible-phone">
 				<i class="icon icon-home"></i>首页
 			</a>
 
 			<ul>
 				<li class="active">
-					<a href="javascript:;">
+					<a href="index.jsp">
 						<i class="icon icon-home"></i>
 						<span>首页</span>
 					</a>
 				</li>
 				
 				<li>
-					<a href="<%=contextPath%>/inner/cinema/publishticket.jsp">
+					<a href="publishticket.jsp">
 						<i class="icon icon-pencil"></i>
 						<span>发布电影票</span>
 					</a>
 				</li>
 
 				<li>
-					<a href="<%=contextPath%>/inner/cinema/ticketlist.jsp">
+					<a href="ticketlist.jsp">
 						<i class="icon icon-th-list"></i>
 						<span>电影票列表</span>
 					</a>
 				</li>
 				
 				<li>
-					<a href="javascript:;">
+					<a href="handlebooking.jsp">
 						<i class="icon icon-file"></i>
 						<span>查看预订情况</span>
 					</a>

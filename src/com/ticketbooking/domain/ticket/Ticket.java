@@ -38,6 +38,12 @@ public class Ticket implements Serializable {
 	private Date releaseTime;//发布时间
 
 
+	public Ticket() {}
+	
+	public Ticket(Long ticketId) {
+		this.ticketId = ticketId;
+	}
+	
 	public Long getUserId() {
 		return userId;
 	}

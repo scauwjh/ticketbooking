@@ -1,6 +1,4 @@
 <%@page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8"%>
-<%@page import="com.ticketbooking.domain.ticket.Ticket" %>
-<%@page import="java.util.List" %>
 <%String contextPath = request.getServletContext().getContextPath();%>
 <!DOCTYPE html>
 <html>
@@ -8,15 +6,14 @@
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<title>电影票预定系统</title>
-		<link href="http://fonts.googleapis.com/css?family=Arvo" rel="stylesheet" type="text/css" />
-		<link rel="stylesheet" type="text/css" href="<%=contextPath%>/css/style.css" />
-		<link rel="stylesheet" type="text/css" href="<%=contextPath%>/css/inner.css" />
-		<link rel="stylesheet" type="text/css" href="<%=contextPath%>/css/index.css" />
-		<script src="<%=contextPath%>/js/system/jquery-1.11.0.min.js"></script>
+		<link rel="stylesheet" type="text/css" href="css/style.css" />
+		<link rel="stylesheet" type="text/css" href="css/inner.css" />
+		<link rel="stylesheet" type="text/css" href="css/index.css" />
+		<script src="js/system/jquery-1.11.0.min.js"></script>
 		<script type="text/javascript">
 			var contextPath = "<%=contextPath%>";
 		</script>
-		<script src="<%=contextPath%>/js/customer/index.js"></script>
+		<script type="text/javascript" src="js/customer/index.js"></script>
 	</head>
 	<body>
 		<div id="bg1"></div>
@@ -65,8 +62,8 @@
 						<a href="javascript:;" id="logout"> 退出</a> 
 					</div>
 					<div id="to_login"> 
-						<a href="<%=contextPath%>/login.jsp">登录 </a>|
-						<a href="<%=contextPath%>/registe.jsp">注册</a>
+						<a href="login.jsp">登录 </a>|
+						<a href="registe.jsp">注册</a>
 					</div>
 				</div>
 			</div>
@@ -74,7 +71,7 @@
 				<div class="captions">
 					<h2>复仇者联盟2014正在热播中，赶快拿起你的电话，拨打99199880088订票吧！</h2>
 				</div>
-				<img src="<%=contextPath%>/image/banner.jpg" alt="" />
+				<img src="image/banner.jpg" alt="" />
 			</div>
 			<div id="main">
 				<div id="content">

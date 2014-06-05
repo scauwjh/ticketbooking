@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import com.ticketbooking.business.cinema.dao.CinemaDao;
 import com.ticketbooking.business.cinema.dao.ICinemaDao;
 import com.ticketbooking.business.core.constant.Constant;
+import com.ticketbooking.domain.privilege.User;
 import com.ticketbooking.domain.ticket.Ticket;
 import com.ticketbooking.domain.ticket.TicketRecord;
 
@@ -102,11 +103,31 @@ public class TicketService {
 		TicketRecord ticketRecord = cinemaDao.queryTicketRecordByUserId(userId, ticketId);
 		if (ticketRecord != null) return false;
 		ticketRecord = new TicketRecord();
-		ticketRecord.setTicketId(ticketId);
-		ticketRecord.setUserId(userId);
+		ticketRecord.setTicketId(new Ticket(ticketId));
+		ticketRecord.setUserId(new User(userId));
 		ticketRecord.setOrderDate(new Date());
 		ticketRecord.setChecked((byte) 0);
 		cinemaDao.saveOrUpdate(ticketRecord);
 		return true;
+	}
+	
+	/**
+	 * 管理员查询记录
+	 * @param start
+	 * @param limit
+	 * @return
+	 */
+	public List<TicketRecord> queryTicketRecord(Integer start, Integer limit) {
+		return cinemaDao.queryTicketRecord(start, limit);
+	}
+	
+	/**
+	 * checked 预订
+	 * @param id
+	 * @param status
+	 * @return
+	 */
+	public Boolean checkedTicketRecord(Long id, Integer status) {
+		return cinemaDao.updateTicketRecordStatus(id, status.byteValue());
 	}
 }

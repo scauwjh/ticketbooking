@@ -17,13 +17,13 @@ insert into `p_role` value (2, 2, '/index.jsp');
 
 #用户表
 create table `p_user`(
-	`id` bigint not null AUTO_INCREMENT,
-	`userId` varchar(15) not null,
+	`userId` bigint not null AUTO_INCREMENT,
+	`account` varchar(15) not null,
 	`password` varchar(40) not null,
 	`token` varchar(35) not null,
 	`role` tinyint not null,
 	`createDate` datetime not null,
-	primary key(`id`),
+	primary key(`userId`),
 	foreign key(`role`) references `p_role`(`roleId`) on update cascade on delete cascade,
 	index(`role`) using btree
 )default character set=utf8 collate=utf8_general_ci engine=InnoDB;
@@ -44,7 +44,7 @@ create table `t_ticket`(
 	`prevue` varchar(255) null,
 	`releaseTime` datetime not null,
 	primary key(`ticketId`),
-	foreign key(`userId`) references `p_user`(`id`) on update cascade on delete cascade,
+	foreign key(`userId`) references `p_user`(`userId`) on update cascade on delete cascade,
 	index(`userId`) using btree
 )default character set=utf8 collate=utf8_general_ci engine=InnoDB;
 
@@ -58,7 +58,7 @@ create table `p_user_info`(
 	`IDCard` varchar(20) null,
 	`otherCard` varchar(20) null,
 	primary key(`id`),
-	foreign key(`userId`) references `p_user`(`id`) on update cascade on delete cascade,
+	foreign key(`userId`) references `p_user`(`userId`) on update cascade on delete cascade,
 	index(`userId`) using btree
 )default character set=utf8 collate=utf8_general_ci engine=InnoDB;
 
@@ -70,7 +70,7 @@ create table `t_ticket_record`(
 	`checked` tinyint not null default 0,
 	`orderDate` datetime not null,
 	primary key(`id`),
-	foreign key(`userId`) references `p_user`(`id`) on update cascade on delete cascade,
+	foreign key(`userId`) references `p_user`(`userId`) on update cascade on delete cascade,
 	index(`userId`) using btree,
 	foreign key(`ticketId`) references `t_ticket`(`ticketId`) on update cascade on delete cascade,
 	index(`ticketId`) using btree

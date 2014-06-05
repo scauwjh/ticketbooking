@@ -65,16 +65,16 @@ public class RegisteServlet extends HttpServlet {
 	
 	private Boolean registe() {
 		try {
-			String userId = request.getParameter(Constant.USER_ID);
+			String account = request.getParameter(Constant.USER_ID);
 			String password = request.getParameter(Constant.PASSWORD); // md5 password
 			String name = request.getParameter("name");
 			String telephone = request.getParameter("telephone");
 			String address = request.getParameter("address");
 			String IDCard = request.getParameter("IDCard");
 			String otherCard = request.getParameter("otherCard");
-			Boolean flag = loginService.addUser(userId, password, (byte) 2);
+			Boolean flag = loginService.addUser(account, password, (byte) 2);
 			if (flag) {
-				loginService.saveUserInfo(userId, name, telephone, address, IDCard, otherCard);
+				loginService.saveUserInfo(account, name, telephone, address, IDCard, otherCard);
 			}
 			return flag;
 		} catch (Exception e) {
@@ -86,8 +86,8 @@ public class RegisteServlet extends HttpServlet {
 
 	// 检查userId是否可用
 	private void checkUserId() {
-		String userId = request.getParameter(Constant.USER_ID);
-		if (loginService.checkUserId(userId)){
+		String account = request.getParameter(Constant.USER_ID);
+		if (loginService.checkAccount(account)){
 			out.println(Constant.CHECK_OK);
 			return;
 		}

@@ -11,9 +11,9 @@ public class User implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	
-	private Long id;
+	private Long userId;
 	
-	private String userId;
+	private String account;
 	
 	private String password;
 	
@@ -24,14 +24,12 @@ public class User implements Serializable {
 	private Date createDate;
 
 	
-	public String getUserId() {
-		return userId;
-	}
-
-	public void setUserId(String userId) {
+	public User() {}
+	
+	public User(Long userId) {
 		this.userId = userId;
 	}
-
+	
 	public String getPassword() {
 		return password;
 	}
@@ -56,20 +54,28 @@ public class User implements Serializable {
 		this.createDate = createDate;
 	}
 
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
 	public Role getRole() {
 		return role;
 	}
 
 	public void setRole(Role role) {
 		this.role = role;
+	}
+
+	public Long getUserId() {
+		return userId;
+	}
+
+	public void setUserId(Long userId) {
+		this.userId = userId;
+	}
+
+	public String getAccount() {
+		return account;
+	}
+
+	public void setAccount(String account) {
+		this.account = account;
 	}
 
 }

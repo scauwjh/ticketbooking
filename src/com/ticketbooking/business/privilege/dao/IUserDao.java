@@ -17,7 +17,7 @@ public interface IUserDao extends IGenericDao {
 	 * @param account
 	 * @return
 	 */
-	public abstract User queryByUserId(String userId);
+	public abstract User queryByAccount(String account);
 	
 	/**
 	 * 通过userId查询获取一个UserInfo

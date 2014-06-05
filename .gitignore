@@ -1,5 +1,7 @@
 *.class
 
+doc
+
 # Eclipse built
 build
 

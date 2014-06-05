@@ -52,8 +52,8 @@ public class LoginServlet extends HttpServlet {
 				if (user != null) {
 					// set session
 					String redirect = user.getRole().getRedirection();
-					session.setAttribute(Constant.USER_ID, user.getId());
-					session.setAttribute(Constant.USER, user.getUserId());
+					session.setAttribute(Constant.USER_ID, user.getUserId());
+					session.setAttribute(Constant.USER, user.getAccount());
 					session.setAttribute(Constant.POWER, user.getRole().getPower());
 					System.out.println(userId + " login succeed");
 					out.println(redirect);

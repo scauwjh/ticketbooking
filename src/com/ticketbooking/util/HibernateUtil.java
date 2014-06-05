@@ -230,6 +230,45 @@ public class HibernateUtil {
 		return createHQLQuery(hql, list.toArray());
 	}
 	/**
+	 * 提交HQL，返回受影响的行数
+	 * @param hql
+	 * @param params
+	 * @return
+	 */
+	public static Integer executeHQL(String hql, Object[] params) {
+		Session sess = threadSession.get();
+		for (int i = 0; i < params.length; i++)
+			hql = hql.replaceFirst("[?]", ":param" + i);
+		Query query = sess.createQuery(hql);
+		for (int i = 0; i < params.length; i++)
+			query.setParameter("param" + i, params[i]);
+		return query.executeUpdate();
+	}
+	/**
+	 * 提交HQL（简化接口）
+	 * @param hql
+	 * @param param
+	 * @return
+	 */
+	public static Integer executeHQL(String hql, Object param) {
+		Object[] obj = new Object[1];
+		obj[0] = param;
+		return executeHQL(hql, obj);
+	}
+	/**
+	 * 提交HQL（简化接口）
+	 * @param hql
+	 * @param param1
+	 * @param param2
+	 * @return
+	 */
+	public static Integer executeHQL(String hql, Object param1, Object param2) {
+		Object[] obj = new Object[2];
+		obj[0] = param1;
+		obj[1] = param2;
+		return executeHQL(hql, obj);
+	}
+	/**
 	 * SQL查询、分页查询
 	 * @param sql
 	 * @param params

@@ -3,6 +3,7 @@ package com.ticketbooking.business.cinema.dao;
 import java.util.List;
 
 import com.ticketbooking.business.core.dao.GenericDao;
+import com.ticketbooking.domain.privilege.User;
 import com.ticketbooking.domain.ticket.Ticket;
 import com.ticketbooking.domain.ticket.TicketRecord;
 import com.ticketbooking.util.HibernateUtil;
@@ -67,7 +68,7 @@ public class CinemaDao extends GenericDao implements ICinemaDao {
 	@Override
 	public List<TicketRecord> queryTicketRecordByUserId(Long userId, Integer start, Integer limit) {
 		String hql = "from TicketRecord tr where tr.userId = ?";
-		return (List<TicketRecord>) HibernateUtil.createHQLQuery(hql, userId, start, limit);
+		return (List<TicketRecord>) HibernateUtil.createHQLQuery(hql, new User(userId), start, limit);
 	}
 
 	@Override
@@ -75,10 +76,26 @@ public class CinemaDao extends GenericDao implements ICinemaDao {
 			Long ticketId) {
 		String hql = "from TicketRecord tr where tr.userId = ? and ticketId = ?";
 		@SuppressWarnings("unchecked")
-		List<TicketRecord> list = (List<TicketRecord>) HibernateUtil.createHQLQuery(hql, userId, ticketId);
+		List<TicketRecord> list = (List<TicketRecord>) HibernateUtil
+			.createHQLQuery(hql, new User(userId), new Ticket(ticketId));
 		if (list.size() > 0)
 			return list.get(0);
 		return null;
+	}
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<TicketRecord> queryTicketRecord(Integer start, Integer limit) {
+		String hql = "from TicketRecord tr";
+		return (List<TicketRecord>) HibernateUtil.createHQLQuery(hql, null, start, limit);
+	}
+
+	@Override
+	public Boolean updateTicketRecordStatus(Long id, Byte status) {
+		String hql = "update TicketRecord tr set tr.checked = ? where tr.id = ?";
+		if (HibernateUtil.executeHQL(hql, status, id) > 0)
+			return true;
+		return false;
 	}
 	
 }

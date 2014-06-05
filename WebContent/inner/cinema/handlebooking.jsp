@@ -17,69 +17,72 @@
 		<script type="text/javascript">
 			$(function(){
 				var contextPath = "<%=contextPath%>";
-				$(function(){
-					$("#logout").click(function(){
-						var url = contextPath + "/logout";
-						$.post(url, function(data){
-							top.location.href = contextPath + data;
-						});
+				/**
+				 * 登出
+				 */
+				$("#logout").click(function(){
+					var url = contextPath + "/logout";
+					$.post(url, function(data){
+						top.location.href = contextPath + data;
 					});
-					var start = 0;
-					var limit = 12;
-					getTicket(start, limit);
-					
-					$(document).on("click", ".update", function(){
-						var ticketId = $(this).prevAll(".ticketId").val();
-						top.location.href = contextPath + "/inner/cinema/publishticket.jsp?ticketId=" + ticketId;
-					});
-					
-					$(document).on("click", ".delete", function(){
-						var ticketId = $(this).prevAll(".ticketId").val();
-						// do some thing
-						$.post(contextPath + "/inner/ticket",
-							{
-								method : "delete",
-								ticketId : ticketId
-							},
-							function(data) {
-								alert(data);
-								window.location.reload();
-							}
-						);
-					});
-					
-					function getTicket(start, limit) {
-						$("#loading").css("display","block");
-						$.post(contextPath + "/inner/ticket",
-							{
-								method : "queryList",
-								start : start,
-								limit : limit
-							},
-							function(data) {
-								var json = eval("(" + data + ")");
-								for (var i = 0; i < json.length; i++) {
-									var content = (i % 2 == 0 ? '<tr class="tr_class">' : '<tr>')
-									+ '<td style="text-align:left">' + json[i].ticketName + '</td>'
-									+ '<td>' + json[i].originalPrice + '</td>'
-									+ '<td>' + json[i].ticketPrice + '</td>'
-									+ '<td>' + json[i].filmType + '</td>'
-									+ '<td>' + json[i].language + '</td>'
-									+ '<td>' + json[i].country + '</td>'
-									+ '<td>' + json[i].onTime + '</td>'
-									+ '<td>'
-									+ '<input type="hidden" value="'+ json[i].ticketId +'" class="ticketId" />'
-									+ '<a href="javascript:;" class="update">修改</a>&nbsp;&nbsp;'
-									+ '<a href="javascript:;" class="delete">删除</a>'
-									+ '</td>'
-									+ '</tr>';
-									$("#content_table").append(content);
-								}
-								$("#loading").css("display","none");
-							}
-						);
-					}
 				});
+				
+				var start = 0;
+				var limit = 12;
+				getTicketRecord(start, limit);
+
+				/**
+				 * 处理订票
+				 */
+				$(document).on("click", ".change", function(){
+					var id = $(this).prevAll(".id").val();
+					var status = $(this).prevAll(".checked").val();
+					status = status == 0 ? 1 : 0;
+					// do some thing
+					$.post(contextPath + "/admin/ticketrecord",
+						{
+							method : "checked",
+							id : id,
+							status : status
+						},
+						function(data) {
+							alert(data);
+							window.location.reload();
+						}
+					);
+				});
+				
+				/**
+				 * 获取订票记录
+				 */
+				function getTicketRecord(start, limit) {
+					$("#loading").css("display","block");
+					$.post(contextPath + "/admin/ticketrecord",
+						{
+							method : "query",
+							start : start,
+							limit : limit
+						},
+						function(data) {
+							var json = eval("(" + data + ")");
+							for (var i = 0; i < json.length; i++) {
+								var content = (i % 2 == 0 ? '<tr class="tr_class">' : '<tr>')
+								+ '<td style="text-align:left">' + json[i].ticketId.ticketName + '</td>'
+								+ '<td>' + json[i].userId.account + '</td>'
+								+ '<td>' + json[i].orderDate + '</td>'
+								+ '<td>' + (json[i].checked == 0 ? "未通过" : "已通过") + '</td>'
+								+ '<td>'
+								+ '<input type="hidden" value="'+ json[i].id +'" class="id" />'
+								+ '<input type="hidden" value="'+ json[i].checked +'" class="checked" />'
+								+ '<a href="javascript:;" class="change">修改审核状态</a>'
+								+ '</td>'
+								+ '</tr>';
+								$("#content_table").append(content);
+							}
+							$("#loading").css("display","none");
+						}
+					);
+				}
 			});
 		</script>
 	</head>
@@ -134,14 +137,14 @@
 					</a>
 				</li>
 
-				<li  class="active">
+				<li>
 					<a href="ticketlist.jsp">
 						<i class="icon icon-th-list"></i>
 						<span>电影票列表</span>
 					</a>
 				</li>
 				
-				<li>
+				<li class="active">
 					<a href="handlebooking.jsp">
 						<i class="icon icon-file"></i>
 						<span>查看预订情况</span>
@@ -171,11 +174,11 @@
 
 		<div id="content">
 			<div id="content-header">
-				<h1>电影票列表</h1>
+				<h1>预订处理</h1>
 			</div>
 			<div id="breadcrumb">
 				<a href="index.jsp" title="Go to Home" class="tip-bottom"><i class="icon-home"></i>首页</a>
-				<a href="ticketlist.jsp" title="Ticket list" class="tip-bottom">电影票列表</a>
+				<a href="handlebooking.jsp" title="handle booking" class="tip-bottom">预订处理</a>
 			</div>
 			<div class="container-fluid">
 				<!-- main container -->
@@ -183,13 +186,10 @@
 					<table id="content_table">
 						<thead><tr>
 							<th width="100px" style="text-align:left">电影名</th>
-							<th width="80px">原价</th>
-							<th width="80px">现价</th>
-							<th width="200px">类型</th>
-							<th width="100px">语言</th>
-							<th width="100px">国家</th>
-							<th width="180px">上映时间</th>
-							<th width="80px">操作</th>
+							<th width="80px">用户</th>
+							<th width="180px">预订时间</th>
+							<th width="100px">审核情况</th>
+							<th width="100px">操作</th>
 						</tr></thead>
 					</table>
 				</div>
@@ -198,12 +198,6 @@
 						&copy;2014. <a href="http://scauwjh.github.com/blog">wjh</a>
 					</div>
 				</div>
-			</div>
-		</div>
-		
-		<div id="loading">
-			<div>
-				<img src="<%=contextPath%>/image/public/loading.gif">
 			</div>
 		</div>
 		

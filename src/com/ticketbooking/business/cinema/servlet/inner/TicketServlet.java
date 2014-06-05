@@ -1,4 +1,4 @@
-package com.ticketbooking.business.cinema.servlet;
+package com.ticketbooking.business.cinema.servlet.inner;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -26,13 +26,13 @@ import com.ticketbooking.domain.ticket.Ticket;
  * @author wjh
  */
 @WebServlet("/inner/ticket")
-public class ITicketServlet extends HttpServlet {
+public class TicketServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private PrintWriter out;
 	private HttpSession session;
 	private TicketService ticketService = new TicketService();
 
-	public ITicketServlet() {
+	public TicketServlet() {
 		super();
 	}
 

@@ -57,4 +57,20 @@ public interface ICinemaDao extends IGenericDao {
 	 * @return
 	 */
 	public abstract TicketRecord queryTicketRecordByUserId(Long userId, Long ticketId);
+	
+	/**
+	 * 管理员查询订票记录
+	 * @param start
+	 * @param limit
+	 * @return
+	 */
+	public List<TicketRecord> queryTicketRecord(Integer start, Integer limit);
+	
+	/**
+	 * 更新预订记录的状态
+	 * @param id
+	 * @param status
+	 * @return
+	 */
+	public Boolean updateTicketRecordStatus(Long id, Byte status);
 }

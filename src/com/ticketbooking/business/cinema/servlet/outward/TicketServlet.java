@@ -1,4 +1,4 @@
-package com.ticketbooking.business.cinema.servlet;
+package com.ticketbooking.business.cinema.servlet.outward;
 
 import java.io.IOException;
 import java.util.List;
@@ -24,11 +24,11 @@ import com.ticketbooking.domain.ticket.Ticket;
  * @author wjh
  */
 @WebServlet("/outward/ticket")
-public class OTicketServlet extends HttpServlet {
+public class TicketServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private TicketService ticketService = new TicketService();
 	
-    public OTicketServlet() {
+    public TicketServlet() {
         super();
     }
 

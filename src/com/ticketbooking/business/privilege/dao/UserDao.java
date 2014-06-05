@@ -25,10 +25,10 @@ public class UserDao extends GenericDao implements IUserDao {
 	}
 
 	@Override
-	public User queryByUserId(String userId) {
-		String hql = "from User u where u.userId = ?";
+	public User queryByAccount(String account) {
+		String hql = "from User u where u.account = ?";
 		@SuppressWarnings("unchecked")
-		List<User> list = (List<User>) HibernateUtil.createHQLQuery(hql, userId);
+		List<User> list = (List<User>) HibernateUtil.createHQLQuery(hql, account);
 		if (list.size() > 0)
 			return list.get(0);
 		return null;

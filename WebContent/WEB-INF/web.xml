@@ -8,7 +8,7 @@
   <filter-mapping>
     <filter-name>LoginFilter</filter-name>
     <url-pattern>/inner/*</url-pattern>
-    <url-pattern>/inner/*</url-pattern>
+    <url-pattern>/admin/*</url-pattern>
   </filter-mapping>
   <filter>
     <filter-name>CinemaFilter</filter-name>

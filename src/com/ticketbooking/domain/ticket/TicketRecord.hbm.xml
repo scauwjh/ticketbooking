@@ -12,8 +12,12 @@
 			<generator class="identity"/>
 		</id>
 		<!-- 映射普通属性 -->
-		<property name="userId" column="userId"/>
-		<property name="ticketId" column="ticketId"/>
+		<many-to-one name="userId" class="com.ticketbooking.domain.privilege.User" lazy="false" cascade="none" fetch="join">
+        	<column name="userId"></column>
+        </many-to-one>
+		<many-to-one name="ticketId" class="com.ticketbooking.domain.ticket.Ticket" lazy="false" cascade="none" fetch="join">
+        	<column name="ticketId"></column>
+        </many-to-one>
 		<property name="checked" column="checked"/>
 		<property name="orderDate" column="orderDate"/>
     </class>
